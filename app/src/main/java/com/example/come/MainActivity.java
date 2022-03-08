@@ -11,7 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.come.databinding.ActivityMainBinding;
-
+import com.example.come.R;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
