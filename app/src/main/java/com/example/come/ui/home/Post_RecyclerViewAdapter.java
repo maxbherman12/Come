@@ -61,7 +61,6 @@ public class Post_RecyclerViewAdapter extends RecyclerView.Adapter<Post_Recycler
             viewPager = itemView.findViewById(R.id.myViewPager);
             textViewCaption = itemView.findViewById(R.id.captionField);
             horizontalScrollAdapter = new HorizontalScrollAdapter(viewPager.getContext());
-
         }
     }
 }

@@ -35,15 +35,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //RecyclerView recyclerView = (RecyclerView) container.findViewById(R.id.my_recyclerview);
-        //setUpPosts();
-        //Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
-        //recyclerView.setAdapter(adapter);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        //final TextView textView = binding.textHome;
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         return root;
     }
@@ -56,6 +48,7 @@ public class HomeFragment extends Fragment {
         Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 
 
