@@ -20,7 +20,7 @@ import com.example.come.databinding.FragmentHomeBinding;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    ArrayList<PostData> posts= new ArrayList<>();
+    ArrayList<PostData> posts;
     private FragmentHomeBinding binding;
 
 
@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.my_recyclerview);
-        setUpPosts();
+        posts = setUpPosts();
         Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -52,7 +52,8 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void setUpPosts(){
+    private ArrayList<PostData> setUpPosts(){
+        ArrayList<PostData> list = new ArrayList<>();
         String[] captions= {"This is my food review","Another Food review","Last review of me"};
         int[][] images= {
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
@@ -60,8 +61,10 @@ public class HomeFragment extends Fragment {
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3}
         };
         for (int i=0; i<3; i++){
-            posts.add(new PostData(captions[i],images[i]));
+            list.add(new PostData(captions[i],images[i]));
         }
+
+        return list;
     }
 
 
