@@ -22,6 +22,7 @@ public class PostFragment extends Fragment {
     private PostViewModel mViewModel;
     ViewPager viewPager_post;
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
+    int[] number_buttons = new int[]{0,1,2,3,4,5,6};
 
     public static PostFragment newInstance() {
         return new PostFragment();
@@ -39,6 +40,8 @@ public class PostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewPager_post=view.findViewById(R.id.viewPager_post);
         horizontalScrollAdapter_post = new HorizontalScrollAdapter_Post(viewPager_post.getContext());
+        horizontalScrollAdapter_post.setButtonArray(number_buttons);
+        viewPager_post.setAdapter(horizontalScrollAdapter_post);
     }
 
 
