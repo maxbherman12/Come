@@ -1,29 +1,32 @@
 package com.example.come.ui.post;
 
-import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.media.Image;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.come.R;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.come.ui.home.HorizontalScrollAdapter;
-
 public class HorizontalScrollAdapter_Post  extends PagerAdapter {
 
+
+
+    private int currentPosition;
+    private Activity activity;
+    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private Context ctx;
     private int[] ImageArray; //= new int[] {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3};
-    HorizontalScrollAdapter_Post(Context context) {ctx = context;}
+    //private  int PICK_PHOTO_CODE= 999;
+    HorizontalScrollAdapter_Post(Context context) {ctx = context;
+    activity = (Activity) ctx;
+    }
+
 
 
     @Override
@@ -54,24 +57,46 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         //imageView.setImageResource(ImageArray[position]);
         imageView.setImageResource(R.drawable.add_your_image);
-        container.addView(imageView, 0);
+        container.addView(imageView, position);
+        imageView.setTag(position);
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(position == 0) {
+                /*if(position == 0) {
                     Toast.makeText(ctx, "One", Toast.LENGTH_SHORT).show();
                 } else if(position == 1) {
                     Toast.makeText(ctx, "Two", Toast.LENGTH_SHORT).show();
                 } else if(position == 2) {
                     Toast.makeText(ctx, "Three", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+                 */
+                currentPosition=position;
+                selectImage();
+                  }
+
+            });
+
 
         return imageView;
     }
+    private void selectImage(){
+        //Activity activity = (Activity) ctx;
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        Bundle extras = new Bundle();
+        extras.putString("Username", "teststring");
+        intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.putExtras(extras);
+                activity.startActivityForResult(Intent.createChooser(intent, "Selectet_Image"), 999 );
+
+        }
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
@@ -81,6 +106,12 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
     public void setButtonArray(int[] imageArray) {
         ImageArray = imageArray;
     }
+
+    public void display_image(){
+
+    }
+
+
 }
 
 

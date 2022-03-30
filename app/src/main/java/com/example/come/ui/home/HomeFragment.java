@@ -1,10 +1,12 @@
 package com.example.come.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 //import android.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,7 +70,13 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==999){
+            Toast.makeText(getContext(), "One", Toast.LENGTH_SHORT).show();
+        }
 
+    }
 
 
 
