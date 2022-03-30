@@ -25,16 +25,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class PostFragment extends Fragment {
-    public Uri uri;
+    //public Uri uri;
     private PostViewModel mViewModel;
     ViewPager viewPager_post;
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
-    int[] number_image_holders = new int[]{0,1,2,3,4,5,6};
+    int[] number_image_holders = new int[]{1,2,3,4,5,6,7};
     Button mybutton;
 
+    /*
     public static PostFragment newInstance() {
         return new PostFragment();
-    }
+    }*/
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -56,8 +57,8 @@ public class PostFragment extends Fragment {
 
 
 
-    public void test(Intent data) {
-        uri = data.getData();
+    public void getIntent(Intent data) {
+        Uri uri = data.getData();
         int position = horizontalScrollAdapter_post.getCurrentPosition();
         try {
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);

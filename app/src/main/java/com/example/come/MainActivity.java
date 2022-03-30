@@ -53,6 +53,6 @@ public class MainActivity extends AppCompatActivity {
             NavHostFragment navHostFragment= (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
             PostFragment fragment = (PostFragment) navHostFragment.getChildFragmentManager().getPrimaryNavigationFragment();
            // PostFragment fragment = (PostFragment) getSupportFragmentManager().findFragmentById(R.id.postFragment);
-            fragment.test(data);
+            fragment.getIntent(data);
     }
 }

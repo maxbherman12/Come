@@ -18,6 +18,7 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
 
 
     private int currentPosition;
+    //private int count=6;
     private Activity activity;
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private Context ctx;
@@ -31,6 +32,7 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
 
     @Override
     public int getCount() {
+
         return ImageArray.length;
     }
 
@@ -53,6 +55,7 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
         //pictureAddButton.setHeight(LayoutParams.MATCH_PARENT);
         container.addView(pictureAddButton, 0);
         return pictureAddButton;*/
+        //instantiatedImageViews+=1;
         ImageView imageView = new ImageView(ctx);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         //imageView.setImageResource(ImageArray[position]);
@@ -78,7 +81,7 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
 
             });
 
-
+        //count=+1;
         return imageView;
     }
     private void selectImage(){
@@ -107,9 +110,7 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
         ImageArray = imageArray;
     }
 
-    public void display_image(){
 
-    }
 
 
 }
