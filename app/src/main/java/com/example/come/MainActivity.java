@@ -21,7 +21,7 @@ import com.example.come.R;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     public NavController navController;
-    //PostFragment fragment;
+
 
 
     @Override
@@ -41,18 +41,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        //fragment =(PostFragment) getSupportFragmentManager().findFragmentById(R.id.postFragment);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Toast.makeText(this, "One", Toast.LENGTH_SHORT).show();
-
-           // navController.findDestination(1);
             NavHostFragment navHostFragment= (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
             PostFragment fragment = (PostFragment) navHostFragment.getChildFragmentManager().getPrimaryNavigationFragment();
-           // PostFragment fragment = (PostFragment) getSupportFragmentManager().findFragmentById(R.id.postFragment);
             fragment.getIntent(data);
     }
 }

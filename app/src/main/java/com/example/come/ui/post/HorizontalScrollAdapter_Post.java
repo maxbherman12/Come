@@ -3,7 +3,10 @@ package com.example.come.ui.post;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,79 +16,63 @@ import com.example.come.R;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class HorizontalScrollAdapter_Post  extends PagerAdapter {
 
 
-
+    private Uri[] uriArray;
     private int currentPosition;
-    //private int count=6;
     private Activity activity;
-    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private Context ctx;
-    private int[] ImageArray; //= new int[] {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3};
-    //private  int PICK_PHOTO_CODE= 999;
-    HorizontalScrollAdapter_Post(Context context) {ctx = context;
+    private int[] ImageArray;
+
+
+    HorizontalScrollAdapter_Post(Context context, Uri[] UriArray) {
+    ctx = context;
     activity = (Activity) ctx;
+    uriArray=UriArray;
     }
 
 
 
     @Override
     public int getCount() {
-
-        return ImageArray.length;
+        return uriArray.length;
     }
+
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         // this creates imageview which contains the image, or page for given position
         // creates page for the views i want to display, container is the view
-        /*LayoutInflater inflater = LayoutInflater.from(ctx);
-        LinearLayout linearLayout = new LinearLayout(ctx);
-        Button pictureAddButton = new Button(linearLayout.getContext());
-        pictureAddButton.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-        pictureAddButton.setText("Add picture");
-        pictureAddButton.setBackgroundColor(Color.TRANSPARENT);
-        //pictureAddButton.setHeight(LayoutParams.MATCH_PARENT);
-        container.addView(pictureAddButton, 0);
-        return pictureAddButton;*/
-        //instantiatedImageViews+=1;
         ImageView imageView = new ImageView(ctx);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        //imageView.setImageResource(ImageArray[position]);
-        imageView.setImageResource(R.drawable.add_your_image);
-        container.addView(imageView, position);
+        imageView.setImageURI(uriArray[position]);
+        container.addView(imageView, 0);
         imageView.setTag(position);
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if(position == 0) {
-                    Toast.makeText(ctx, "One", Toast.LENGTH_SHORT).show();
-                } else if(position == 1) {
-                    Toast.makeText(ctx, "Two", Toast.LENGTH_SHORT).show();
-                } else if(position == 2) {
-                    Toast.makeText(ctx, "Three", Toast.LENGTH_SHORT).show();
-                }
-                 */
                 currentPosition=position;
                 selectImage();
                   }
 
             });
-
-        //count=+1;
         return imageView;
     }
+
     private void selectImage(){
-        //Activity activity = (Activity) ctx;
         Intent intent = new Intent(Intent.ACTION_PICK);
         Bundle extras = new Bundle();
         extras.putString("Username", "teststring");
@@ -105,14 +92,6 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((ImageView) object);
     }
-
-    public void setButtonArray(int[] imageArray) {
-        ImageArray = imageArray;
-    }
-
-
-
-
 }
 
 

@@ -25,58 +25,50 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class PostFragment extends Fragment {
-    //public Uri uri;
+
     private PostViewModel mViewModel;
     ViewPager viewPager_post;
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
-    int[] number_image_holders = new int[]{1,2,3,4,5,6,7};
-    Button mybutton;
-
-    /*
-    public static PostFragment newInstance() {
-        return new PostFragment();
-    }*/
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.post_fragment, container, false);
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mybutton = view.findViewById(R.id.button2);
-        viewPager_post=view.findViewById(R.id.viewPager_post);
-        horizontalScrollAdapter_post = new HorizontalScrollAdapter_Post(viewPager_post.getContext());
-        horizontalScrollAdapter_post.setButtonArray(number_image_holders);
-        viewPager_post.setAdapter(horizontalScrollAdapter_post);
-
-    }
+    Button postButton;
+    public Uri OriginalPath = Uri.parse("android.resource://com.example.come/" + R.drawable.add_your_image);
+    public Uri[] uriArray = new Uri[]{OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath};
 
 
 
-    public void getIntent(Intent data) {
-        Uri uri = data.getData();
-        int position = horizontalScrollAdapter_post.getCurrentPosition();
-        try {
-            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-            ImageView myView =(ImageView) viewPager_post.findViewWithTag(position);
-            myView.setImageBitmap(selectedImage);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                 @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.post_fragment, container, false);
         }
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        // TODO: Use the ViewModel
-    }
+
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            postButton = view.findViewById(R.id.button2);
+            viewPager_post=view.findViewById(R.id.viewPager_post);
+            horizontalScrollAdapter_post = new HorizontalScrollAdapter_Post(viewPager_post.getContext(), uriArray);
+            viewPager_post.setAdapter(horizontalScrollAdapter_post);
+            horizontalScrollAdapter_post.notifyDataSetChanged();
+        }
+
+
+
+        public void getIntent(Intent data) {
+            Uri uri = data.getData();
+            int position = horizontalScrollAdapter_post.getCurrentPosition();
+            uriArray[position]=uri;
+            ImageView myView =(ImageView) viewPager_post.findViewWithTag(position);
+            myView.setImageURI(uri);
+
+        }
+
+        @Override
+        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            mViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+            // TODO: Use the ViewModel
+        }
 
 
 
