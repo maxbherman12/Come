@@ -17,7 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.come.R;
 
@@ -26,7 +28,8 @@ import java.io.IOException;
 
 public class PostFragment extends Fragment {
 
-    private PostViewModel mViewModel;
+   // private PostViewModel mViewModel;
+    EditText captionField;
     ViewPager viewPager_post;
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
     Button postButton;
@@ -46,6 +49,10 @@ public class PostFragment extends Fragment {
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             postButton = view.findViewById(R.id.button2);
+            postButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {postButtonClicked();}
+            });
+            captionField = view.findViewById(R.id.captionField);
             viewPager_post=view.findViewById(R.id.viewPager_post);
             horizontalScrollAdapter_post = new HorizontalScrollAdapter_Post(viewPager_post.getContext(), uriArray);
             viewPager_post.setAdapter(horizontalScrollAdapter_post);
@@ -54,21 +61,34 @@ public class PostFragment extends Fragment {
 
 
 
+    //receives on activity result from activity
         public void getIntent(Intent data) {
-            Uri uri = data.getData();
-            int position = horizontalScrollAdapter_post.getCurrentPosition();
-            uriArray[position]=uri;
-            ImageView myView =(ImageView) viewPager_post.findViewWithTag(position);
-            myView.setImageURI(uri);
+            try {
+                Uri uri = data.getData();
+                int position = horizontalScrollAdapter_post.getCurrentPosition();
+                uriArray[position] = uri;
+                ImageView myView = (ImageView) viewPager_post.findViewWithTag(position);
+                myView.setImageURI(uri);
+            }
+            catch (Exception e){
+            //just here so that the app does not crash when no picture is chosen
+            }
 
         }
 
+        public void postButtonClicked(){
+            String captionOfPost = captionField.getText().toString();
+            //Implement Code here Gorka
+        }
+/*
         @Override
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
             mViewModel = new ViewModelProvider(this).get(PostViewModel.class);
             // TODO: Use the ViewModel
         }
+
+ */
 
 
 
