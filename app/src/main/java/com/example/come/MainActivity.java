@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.come.db.RoomDB;
+import com.example.come.db.User;
+import com.example.come.db.UserDao;
 import com.example.come.ui.post.PostFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -15,9 +18,15 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.TypeConverters;
 
 import com.example.come.databinding.ActivityMainBinding;
 import com.example.come.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     public NavController navController;
@@ -41,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
+
+
     }
 
     @Override
@@ -50,4 +62,5 @@ public class MainActivity extends AppCompatActivity {
             PostFragment fragment = (PostFragment) navHostFragment.getChildFragmentManager().getPrimaryNavigationFragment();
             fragment.getIntent(data);
     }
-}
+
+   }
