@@ -1,5 +1,6 @@
 package com.example.come.ui.home;
 
+import android.app.PictureInPictureUiState;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.come.R;
 
@@ -18,8 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.come.databinding.FragmentHomeBinding;
+import com.example.come.db.Picture;
+import com.example.come.db.Publication;
+import com.example.come.db.RoomDB;
+import com.example.come.db.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     ArrayList<PostData> posts;
@@ -56,6 +63,10 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<PostData> setUpPosts(){
         ArrayList<PostData> list = new ArrayList<>();
+
+        RoomDB db;
+        db = RoomDB.getInstance(getContext());
+
         String[] captions= {"This is my food review","Another Food review","Last review of me"};
         int[][] images= {
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},

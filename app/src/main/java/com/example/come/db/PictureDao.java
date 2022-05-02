@@ -26,6 +26,9 @@ public interface PictureDao {
     @Query("DELETE FROM Picture")
     void deleteAllPictures();
 
-    @Query("SELECT * FROM Picture ORDER BY fk_publicationId ASC")
-    LiveData<List<Picture>> getAllPictures();
+    @Query("SELECT * FROM Picture WHERE fk_publicationId = :pID")
+    List<Picture> getAllPictures(int pID);
+
+    @Query("SELECT * FROM Picture WHERE fk_publicationId = :id")
+    Picture getPictureByPublicationId(int id);
 }

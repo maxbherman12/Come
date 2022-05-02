@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -28,7 +29,7 @@ public interface PublicationDao {
     void deleteAllPublications();
 
     @Query("SELECT * FROM Publication ORDER BY fk_userId ASC")
-    LiveData<List<Publication>> getAllPublications();
+    List<Publication> getAllPublications();
 
     @Query("SELECT * FROM Publication WHERE fk_userId = :id")
     Publication getPublicationByUserId(int id);

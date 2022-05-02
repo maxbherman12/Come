@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
@@ -23,6 +24,8 @@ import com.example.come.db.Picture;
 import com.example.come.db.Publication;
 import com.example.come.db.RoomDB;
 import com.example.come.db.User;
+
+import java.util.List;
 
 public class PostFragment extends Fragment {
 
@@ -76,11 +79,11 @@ public class PostFragment extends Fragment {
     }
 
     public void postButtonClicked() {
+
         RoomDB db;
-        db = Room.databaseBuilder(getContext().getApplicationContext(), RoomDB.class, "database")
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build();
+        db = RoomDB.getInstance(getContext());
+
+
         String username = "come";
         String password = "come";
         User user = new User();
@@ -105,10 +108,13 @@ public class PostFragment extends Fragment {
         publication.setFk_userId(currentUser.getUserId());
 
 
-            for(int i = 0; i < uriArray.length; i = i+1){
+
+
+        for(int i = 1; i < uriArray.length; i++){
                 Picture picture = new Picture();
                 picture.setUrl(uriArray[i].toString());
                 picture.setFk_publicationId(publication.getPublicationId());
+                System.out.println("The id of the pictures is:");
                 System.out.println(picture.getpictureId());
                 System.out.println("The url of the picture is:");
                 System.out.println(picture.getUrl());
