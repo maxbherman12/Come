@@ -1,6 +1,7 @@
 package com.example.come.ui.home;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ public class HorizontalScrollAdapter extends PagerAdapter {
 
     private Context ctx;
     private int[] ImageArray; //= new int[] {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3};
+    private Uri[] UriArray;
     HorizontalScrollAdapter(Context context) {ctx = context;}
 
 
@@ -32,7 +34,8 @@ public class HorizontalScrollAdapter extends PagerAdapter {
         // creates page for the views i want to display, container is the view
         ImageView imageView = new ImageView(ctx);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(ImageArray[position]);
+        imageView.setImageResource(ImageArray[position]); //when we use old part
+        //imageView.setImageURI(UriArray[position]);
         container.addView(imageView, 0);
         return imageView;
     }
@@ -42,7 +45,9 @@ public class HorizontalScrollAdapter extends PagerAdapter {
         container.removeView((ImageView) object);
     }
 
-    public void setImageArray(int[] imageArray) {
+   public void setImageArray(int[] imageArray) {
         ImageArray = imageArray;
-    }
+    } //this is the function when we use non uris for the first part of project
+
+    //public void setUriArray(Uri[] urisOfPosts) {UriArray = urisOfPosts;}
 }
