@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
 
                 //do the fetch data request here
+                Toast.makeText(getContext(), "Successfull refresh", Toast.LENGTH_SHORT).show();
+                setUpUriPosts();
 
 
             }
@@ -79,7 +81,7 @@ public class HomeFragment extends Fragment {
         RoomDB db;
         db = RoomDB.getInstance(getContext());
 
-        String[] captions= {"This is my food review","Another Food review","Last review of me"};
+        String[] captions= {"Dummy post nr 1","Another Food review","Last review of me"};
         int[][] images= {
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
@@ -93,6 +95,17 @@ public class HomeFragment extends Fragment {
     }
 
 
+
+    private ArrayList<PostDataUri> setUpUriPosts(){
+        ArrayList<PostDataUri> postList = new ArrayList<>();
+       // Uri myUri = Uri.parse(string)
+
+
+
+        return postList;
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==999){
@@ -100,7 +113,6 @@ public class HomeFragment extends Fragment {
         }
 
     }
-
 
 
     @Override
