@@ -18,6 +18,7 @@ import com.example.come.R;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.come.databinding.FragmentHomeBinding;
 import com.example.come.db.Picture;
@@ -31,7 +32,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     ArrayList<PostData> posts;
     private FragmentHomeBinding binding;
-
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,11 +54,22 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.my_recyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         posts = setUpPosts();
         Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+
+                //do the fetch data request here
+
+
+            }
+        });
     }
 
 
