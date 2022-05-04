@@ -18,14 +18,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.TypeConverters;
+//import androidx.room.Database;
+//import androidx.room.Room;
+//import androidx.room.TypeConverters;
 
 import com.example.come.databinding.ActivityMainBinding;
-import com.example.come.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+//import com.example.come.R;
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

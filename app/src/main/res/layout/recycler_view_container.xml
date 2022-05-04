@@ -8,8 +8,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="550dp"
+        android:layout_marginVertical="10dp"
         app:layout_constraintBaseline_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp"
@@ -20,7 +20,46 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/postHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="fill"
+                android:paddingHorizontal="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintBaseline_toTopOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/nameField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="@string/namefield"
+                    android:textSize="22sp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBaseline_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/distanceField"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="@string/distancefield"
+                    android:gravity="center_vertical"
+                    android:textSize="22sp"
+                    android:textStyle="italic" />
+            </RelativeLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/myViewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postHeader"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/captionField"
@@ -29,16 +68,12 @@
                 android:layout_marginTop="4dp"
                 android:text="CaptionField"
                 android:textAlignment="center"
-                android:textSize="30dp"
+                android:textSize="20sp"
+                android:padding="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/myViewPager" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/myViewPager"
-                android:layout_width="wrap_content"
-                android:layout_height="500dp"
-                app:layout_constraintBaseline_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

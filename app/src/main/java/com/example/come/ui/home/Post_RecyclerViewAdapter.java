@@ -42,7 +42,9 @@ public class Post_RecyclerViewAdapter extends RecyclerView.Adapter<Post_Recycler
         //assigning values to the views created int the recyclerview_container.xml
         //when they come back on screen, depends on position of the row of reyclerview
         holder.textViewCaption.setText(posts.get(position).getCaption());
+        holder.distanceText.setText(posts.get(position).getDistanceStr());
         holder.horizontalScrollAdapter.setImageArray(posts.get(position).getImageArray());
+        holder.nameText.setText(posts.get(position).getName());
         holder.viewPager.setAdapter(holder.horizontalScrollAdapter);
     }
 
@@ -51,15 +53,19 @@ public class Post_RecyclerViewAdapter extends RecyclerView.Adapter<Post_Recycler
         return posts.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        //grabbing the views from the recyclerview_conteiner file and assigning them to variables
+        //grabbing the views from the recyclerview_container file and assigning them to variables
         //like the onCreate method
         ViewPager viewPager;
         TextView textViewCaption;
+        TextView distanceText;
+        TextView nameText;
         HorizontalScrollAdapter horizontalScrollAdapter;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             viewPager = itemView.findViewById(R.id.myViewPager);
             textViewCaption = itemView.findViewById(R.id.captionField);
+            distanceText = itemView.findViewById(R.id.distanceField);
+            nameText = itemView.findViewById(R.id.nameField);
             horizontalScrollAdapter = new HorizontalScrollAdapter(viewPager.getContext());
         }
     }
