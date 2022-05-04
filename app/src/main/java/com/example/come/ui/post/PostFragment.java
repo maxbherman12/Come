@@ -111,7 +111,7 @@ public class PostFragment extends Fragment {
 
 
 
-        for(int i = 1; i < uriArray.length; i++){
+        for(int i = 0; i < uriArray.length-1; i++){
                 Picture picture = new Picture();
                 picture.setUrl(uriArray[i].toString());
                 picture.setFk_publicationId(publication.getPublicationId());

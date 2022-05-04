@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     private ArrayList<PostDataUri> setUpUriPosts(){
         ArrayList<PostDataUri> postList = new ArrayList<>();
         // Uri myUri = Uri.parse(string)
+
         return postList;
     }
 
