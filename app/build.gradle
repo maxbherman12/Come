@@ -5,6 +5,10 @@ plugins {
 android {
     compileSdk 32
 
+//    def localPropertiesFile = rootProject.file("local.properties")
+//    def localProperties = new Properties()
+//    localProperties.load(new FileInputStream(localPropertiesFile))
+
     defaultConfig {
         applicationId "com.example.come"
         minSdk 23
@@ -13,6 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "MAPS_API_KEY", "\"${properties.getProperty('MAPS_API_KEY')}\""
     }
 
     buildTypes {

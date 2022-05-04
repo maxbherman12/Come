@@ -151,19 +151,15 @@ public class HomeFragment extends Fragment implements LocationListener {
     private void updatePostDistance(int index){
         if (deviceLoc == null) return;
 
-        String origin = deviceLoc.getLatitude() + ", " + deviceLoc.getLongitude();
-        String destination = posts.get(index).getAddress();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://maps.googleapis.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PlacesService usersService = retrofit.create(PlacesService.class);
 
-        // The value of the the API key should be in the local.properties file:
-        // MAPS_API_KEY=<your-api-key>
-        String key = "AIzaSyAK_bjwkopUkTITuiaVVEevDlDKs5z8aRY";
-//        String key = BuildConfig.MAPS_API_KEY;
+        String origin = deviceLoc.getLatitude() + ", " + deviceLoc.getLongitude();
+        String destination = posts.get(index).getAddress();
+        String key = BuildConfig.MAPS_API_KEY;
 
         Call<Root> call = usersService.queryDistance(origin, destination, key);
 
