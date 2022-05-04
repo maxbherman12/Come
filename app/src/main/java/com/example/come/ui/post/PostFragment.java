@@ -61,6 +61,7 @@ public class PostFragment extends Fragment {
         horizontalScrollAdapter_post.notifyDataSetChanged();
 
 
+
     }
 
 

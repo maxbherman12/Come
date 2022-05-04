@@ -27,6 +27,7 @@ import com.example.come.R;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.come.databinding.FragmentHomeBinding;
 import com.example.come.db.Picture;
@@ -50,6 +51,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment implements LocationListener {
     ArrayList<PostData> posts;
     Location deviceLoc;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +74,9 @@ public class HomeFragment extends Fragment implements LocationListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = view.findViewById(R.id.my_recyclerview);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.my_recyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         posts = setUpPosts();
         for(int i = 0; i < posts.size(); ++i){
             updatePostDistance(i);
@@ -80,6 +84,25 @@ public class HomeFragment extends Fragment implements LocationListener {
         Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+
+                //do the fetch data request here
+                Toast.makeText(getContext(), "Successfull refresh", Toast.LENGTH_SHORT).show();
+                setUpUriPosts();
+
+
+            }
+        });
+    }
+
+    private ArrayList<PostDataUri> setUpUriPosts(){
+        ArrayList<PostDataUri> postList = new ArrayList<>();
+        // Uri myUri = Uri.parse(string)
+        return postList;
     }
 
     /**
@@ -131,7 +154,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         RoomDB db;
         db = RoomDB.getInstance(getContext());
 
-        String[] captions= {"This is my food review","Another Food review","Last review of me"};
+        String[] captions= {"Dummy post nr 1","Another Food review","Last review of me"};
         int[][] images= {
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
