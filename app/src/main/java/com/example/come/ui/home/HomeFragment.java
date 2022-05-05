@@ -100,14 +100,9 @@ public class HomeFragment extends Fragment implements LocationListener {
         RoomDB db;
         db = RoomDB.getInstance(getContext());
         List<Publication> publications = db.PublicationDao().getAllPublications();
-        ArrayList<String> captionList = new ArrayList<>();
-        ArrayList<Uri> imageList = new ArrayList<>();
-
-        String caption;
-        Uri image;
 
         for (Publication publication : publications){
-            caption = publication.getCaption();
+            String caption = publication.getCaption();
             User user = db.UserDao().findUserById(publication.getFk_userId());
             String username = user.getUserName();
             int publicationId = publication.getPublicationId();
