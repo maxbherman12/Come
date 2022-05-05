@@ -25,6 +25,7 @@ import com.example.come.db.Publication;
 import com.example.come.db.RoomDB;
 import com.example.come.db.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -126,19 +127,19 @@ public class PostFragment extends Fragment {
         publication.setCaption(captionOfPost);
         publication.setFk_userId(currentUser.getUserId());
         db.PublicationDao().insertPublication(publication);
-        //The storage of the users and publications works good
+
+        int pID = publication.getPublicationId();
         for(int i = 0; i < uriArray.length-1; i++){
                 Picture picture = new Picture();
                 picture.setUrl(uriArray[i].toString());
                 String oldPic = "android.resource://com.example.come/2131165270";
                 if (picture.getUrl() != oldPic){
-                    System.out.println(i);
-                    System.out.println(publication.getPublicationId());
-                    System.out.println(picture.getUrl());
-                    picture.setFk_publicationId(publication.getPublicationId());
+                    picture.setFk_publicationId(pID);
+                    db.PictureDao().insertPicture(picture);
                 }
 
         }
+
 
 
 
