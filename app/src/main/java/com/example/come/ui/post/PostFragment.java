@@ -25,6 +25,7 @@ import com.example.come.db.Publication;
 import com.example.come.db.RoomDB;
 import com.example.come.db.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -33,7 +34,10 @@ public class PostFragment extends Fragment {
 
     // private PostViewModel mViewModel;
     EditText captionField;
+    EditText cityField;
+    EditText restaurantField;
     ViewPager viewPager_post;
+
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
     Button postButton;
     public Uri OriginalPath = Uri.parse("android.resource://com.example.come/" + R.drawable.add_your_image);
@@ -52,6 +56,10 @@ public class PostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         postButton = view.findViewById(R.id.button2);
         captionField = view.findViewById(R.id.captionField);
+        cityField = view.findViewById(R.id.city_field);
+        restaurantField = view.findViewById((R.id.restaurant_field));
+
+
         postButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 postButtonClicked();
@@ -106,24 +114,32 @@ public class PostFragment extends Fragment {
         }
 
         User currentUser = db.UserDao().findUserByName(username);
+
+
         String captionOfPost = captionField.getText().toString();
+        String cityOfPost = cityField.getText().toString();
+        String restaurantOfPost = restaurantField.getText().toString();
+
+
+
+
         Publication publication = new Publication();
         publication.setCaption(captionOfPost);
         publication.setFk_userId(currentUser.getUserId());
         db.PublicationDao().insertPublication(publication);
-        //The storage of the users and publications works good
+
+        int pID = publication.getPublicationId();
         for(int i = 0; i < uriArray.length-1; i++){
                 Picture picture = new Picture();
                 picture.setUrl(uriArray[i].toString());
                 String oldPic = "android.resource://com.example.come/2131165270";
                 if (picture.getUrl() != oldPic){
-                    System.out.println(i);
-                    System.out.println(publication.getPublicationId());
-                    System.out.println(picture.getUrl());
-                    picture.setFk_publicationId(publication.getPublicationId());
+                    picture.setFk_publicationId(pID);
+                    db.PictureDao().insertPicture(picture);
                 }
 
         }
+
 
 
 
