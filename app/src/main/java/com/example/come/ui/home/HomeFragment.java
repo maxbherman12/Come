@@ -1,5 +1,8 @@
 package com.example.come.ui.home;
 
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 //import android.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -46,6 +50,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment implements LocationListener {
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ArrayList<PostData> posts;
     Location deviceLoc;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -54,15 +59,42 @@ public class HomeFragment extends Fragment implements LocationListener {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        if (ContextCompat.checkSelfPermission(requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
+        if (checkSelfPermission(requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
         LocationManager locationManager = (LocationManager) requireActivity()
                 .getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 0, 1, this);
+
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                         MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+        }
 
         posts = setUpPosts();
         for(int i = 0; i < posts.size(); ++i){
@@ -111,19 +143,22 @@ public class HomeFragment extends Fragment implements LocationListener {
             User user = db.UserDao().findUserById(publication.getFk_userId());
             String username = user.getUserName();
             int publicationId = publication.getPublicationId();
+            String city = publication.getCity();
+            String restaurant = publication.getRestaurant();
             List<Picture> allPics = db.PictureDao().getAllPictures();
             ArrayList<Uri> pictures = new ArrayList<>();
 
             for (Picture picture: allPics){
                 int pubId = picture.getFk_publicationId();
-                if (pubId == publicationId){
+                if (pubId+1 == publicationId){
                     Uri picUri = Uri.parse(picture.getUrl());
                     System.out.println("Our parsed URI +++++++++: "+picUri.toString());
                     pictures.add(picUri);
                 }
             }
             Uri[] UriArray = pictures.toArray(new Uri[0]);
-            postList.add(new PostDataUri(caption, UriArray, "Yatai Market", "Madrid"));
+
+            postList.add(new PostDataUri(caption, UriArray, restaurant, city));
         }
 
         return postList;
