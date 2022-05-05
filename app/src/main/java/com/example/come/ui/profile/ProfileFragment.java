@@ -32,19 +32,24 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
-        List<String> restaurantList = new ArrayList<>();
+        List<String> restaurantList = getRestaurants();
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(view.getContext(),
                 android.R.layout.simple_list_item_1, restaurantList);
         ListView list = view.findViewById(R.id.restaurant_list);
         list.setAdapter(listAdapter);
 
         // tmp list of restaurants, replace later with fetching from db
+//        listAdapter.notifyDataSetChanged();
+
+        return view;
+    }
+
+    public List<String> getRestaurants(){
+        List<String> restaurantList = new ArrayList<>();
         String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};
         for(String restaurant: restaurants){
             restaurantList.add(restaurant);
         }
-        listAdapter.notifyDataSetChanged();
-
-        return view;
+        return restaurantList;
     }
 }
