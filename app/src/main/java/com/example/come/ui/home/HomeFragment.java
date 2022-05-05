@@ -38,6 +38,7 @@ import com.example.come.distmatrix.Element;
 import com.example.come.distmatrix.PlacesService;
 import com.example.come.distmatrix.Root;
 import com.example.come.distmatrix.Row;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,11 @@ public class HomeFragment extends Fragment implements LocationListener {
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 0, 1, this);
 
+        posts = setUpPosts();
+        for(int i = 0; i < posts.size(); ++i){
+            updatePostDistance(i);
+        }
+
         return view;
     }
 
@@ -77,10 +83,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.my_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        posts = setUpPosts();
-        for(int i = 0; i < posts.size(); ++i){
-            updatePostDistance(i);
-        }
+
         Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -196,10 +199,14 @@ public class HomeFragment extends Fragment implements LocationListener {
                 assert response.body() != null;
                 for (Row row : response.body().rows) {
                     for (Element element: row.elements){
-                        double dist = Integer.parseInt(element.distance.value);
-                        if (min == -1 || min > dist){
-                            min = dist;
+                        if (element.distance == null) return;
+                        else{
+                            double dist = Integer.parseInt(element.distance.value);
+                            if (min == -1 || min > dist){
+                                min = dist;
+                            }
                         }
+
                     }
                 }
 
