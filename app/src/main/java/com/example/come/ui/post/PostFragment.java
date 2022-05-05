@@ -126,6 +126,8 @@ public class PostFragment extends Fragment {
         Publication publication = new Publication();
         publication.setCaption(captionOfPost);
         publication.setFk_userId(currentUser.getUserId());
+        publication.setCity(cityOfPost);
+        publication.setRestaurant(restaurantOfPost);
         db.PublicationDao().insertPublication(publication);
 
         int pID = publication.getPublicationId();
