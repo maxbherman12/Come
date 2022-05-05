@@ -11,8 +11,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.come.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -25,14 +30,21 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.profile_fragment, container, false);
-    }
+        View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        // TODO: Use the ViewModel
-    }
+        List<String> restaurantList = new ArrayList<>();
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_list_item_1, restaurantList);
+        ListView list = view.findViewById(R.id.restaurant_list);
+        list.setAdapter(listAdapter);
 
+        // tmp list of restaurants, replace later with fetching from db
+        String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};
+        for(String restaurant: restaurants){
+            restaurantList.add(restaurant);
+        }
+        listAdapter.notifyDataSetChanged();
+
+        return view;
+    }
 }
