@@ -85,11 +85,13 @@ public class HomeFragment extends Fragment implements LocationListener {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(false);
-
+                ArrayList<PostDataUri> fetchedPosts;
                 //do the fetch data request here
                 Toast.makeText(getContext(), "Successfull refresh", Toast.LENGTH_SHORT).show();
-                setUpUriPosts();
-
+                fetchedPosts = setUpUriPosts();
+                Post_RecyclerViewAdapter_Fetched adapter = new Post_RecyclerViewAdapter_Fetched(getContext(), fetchedPosts);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
             }
         });
@@ -103,8 +105,6 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         for (Publication publication : publications){
             String caption = publication.getCaption();
-            String city = publication.getCity();
-            String restaurant = publication.getRestaurant();
             User user = db.UserDao().findUserById(publication.getFk_userId());
             String username = user.getUserName();
             int publicationId = publication.getPublicationId();
@@ -115,10 +115,12 @@ public class HomeFragment extends Fragment implements LocationListener {
                 int pubId = picture.getFk_publicationId();
                 if (pubId == publicationId){
                     Uri picUri = Uri.parse(picture.getUrl());
+                    System.out.println("Our parsed URI +++++++++: "+picUri.toString());
                     pictures.add(picUri);
                 }
             }
-            postList.add(new PostDataUri(caption, pictures, restaurant, city));
+            Uri[] UriArray = pictures.toArray(new Uri[0]);
+            postList.add(new PostDataUri(caption, UriArray, "Yatai Market", "Madrid"));
         }
 
         return postList;

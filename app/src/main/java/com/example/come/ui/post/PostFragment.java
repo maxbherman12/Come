@@ -126,8 +126,6 @@ public class PostFragment extends Fragment {
         Publication publication = new Publication();
         publication.setCaption(captionOfPost);
         publication.setFk_userId(currentUser.getUserId());
-        publication.setCity(cityOfPost);
-        publication.setRestaurant(restaurantOfPost);
         db.PublicationDao().insertPublication(publication);
 
         int pID = publication.getPublicationId();
@@ -141,10 +139,15 @@ public class PostFragment extends Fragment {
                 }
 
         }
-        System.out.println(publication.getCaption());
-        System.out.println(publication.getRestaurant());
-        System.out.println(publication.getCity());
 
+
+
+
+
+
+
+        //Uri selectedImageUri = data.getData();
+        //Implement Code here Gorka
     }
     /*
         @Override
