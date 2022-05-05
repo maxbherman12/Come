@@ -136,6 +136,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         ArrayList<PostDataUri> postList = new ArrayList<>();
         RoomDB db;
         db = RoomDB.getInstance(getContext());
+
         List<Publication> publications = db.PublicationDao().getAllPublications();
 
         for (Publication publication : publications){
@@ -150,7 +151,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
             for (Picture picture: allPics){
                 int pubId = picture.getFk_publicationId();
-                if (pubId+1 == publicationId){
+                if (pubId == publicationId){
                     Uri picUri = Uri.parse(picture.getUrl());
                     System.out.println("Our parsed URI +++++++++: "+picUri.toString());
                     pictures.add(picUri);

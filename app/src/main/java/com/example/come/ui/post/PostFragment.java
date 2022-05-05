@@ -129,8 +129,9 @@ public class PostFragment extends Fragment {
         publication.setCity(cityOfPost);
         publication.setRestaurant(restaurantOfPost);
         db.PublicationDao().insertPublication(publication);
-
-        int pID = publication.getPublicationId();
+        List<Publication> allP =  db.PublicationDao().getAllPublications();
+        Publication lastOne = allP.get(allP.size()-1);
+        int pID = lastOne.getPublicationId();
         for(int i = 0; i < uriArray.length-1; i++){
                 Picture picture = new Picture();
                 picture.setUrl(uriArray[i].toString());
