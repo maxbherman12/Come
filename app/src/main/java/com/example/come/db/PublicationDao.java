@@ -33,7 +33,4 @@ public interface PublicationDao {
 
     @Query("SELECT * FROM Publication WHERE fk_userId = :id")
     Publication getPublicationByUserId(int id);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertUsers(Publication... publication);
 }

@@ -32,7 +32,7 @@ public interface UserDao {
     void deleteAllUsers();
 
     @Query("SELECT * FROM User ORDER BY userName ASC")
-    LiveData<List<User>> getAllUsers();
+    List<User> getAllUsers();
 
     @Transaction
     @Query("SELECT * FROM User")

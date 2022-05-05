@@ -34,16 +34,21 @@ public abstract class RoomDB extends RoomDatabase{
                             }
                         }).
                         build();
+
+
             }
 
         }
         return database;
     }
+
     public void clearDb() {
         if (database != null) {
             new PopulateDbAsync(database).execute();
         }
     }
+
+
     // Data Access Objects for SQL database queries
     public abstract UserDao UserDao();
     public abstract PictureDao PictureDao();
@@ -97,4 +102,6 @@ public abstract class RoomDB extends RoomDatabase{
             return null;
         }
     }
+
+
 }

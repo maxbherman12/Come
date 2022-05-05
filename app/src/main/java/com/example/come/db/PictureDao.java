@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface PictureDao {
     @Query("SELECT * FROM Picture WHERE pictureId = :pictureId LIMIT 1")
-    Picture findPictureById(int pictureId);;
+    Picture findPictureById(int pictureId);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insertPicture(Picture picture);
@@ -26,8 +26,11 @@ public interface PictureDao {
     @Query("DELETE FROM Picture")
     void deleteAllPictures();
 
+    @Query("SELECT * FROM Picture ORDER BY fk_publicationId ASC")
+    List<Picture> getAllPictures();
+
     @Query("SELECT * FROM Picture WHERE fk_publicationId = :pID")
-    List<Picture> getAllPictures(int pID);
+    List<Picture> getAllPicturesByPublicationId(int pID);
 
     @Query("SELECT * FROM Picture WHERE fk_publicationId = :id")
     Picture getPictureByPublicationId(int id);

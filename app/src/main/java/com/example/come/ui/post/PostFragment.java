@@ -26,6 +26,8 @@ import com.example.come.db.RoomDB;
 import com.example.come.db.User;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class PostFragment extends Fragment {
 
@@ -49,12 +51,13 @@ public class PostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         postButton = view.findViewById(R.id.button2);
+        captionField = view.findViewById(R.id.captionField);
         postButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 postButtonClicked();
             }
         });
-        captionField = view.findViewById(R.id.captionField);
+
         viewPager_post = view.findViewById(R.id.viewPager_post);
         horizontalScrollAdapter_post = new HorizontalScrollAdapter_Post(viewPager_post.getContext(), uriArray);
         viewPager_post.setAdapter(horizontalScrollAdapter_post);
@@ -107,21 +110,24 @@ public class PostFragment extends Fragment {
         Publication publication = new Publication();
         publication.setCaption(captionOfPost);
         publication.setFk_userId(currentUser.getUserId());
-
-
-
-
+        db.PublicationDao().insertPublication(publication);
+        //The storage of the users and publications works good
         for(int i = 0; i < uriArray.length-1; i++){
                 Picture picture = new Picture();
                 picture.setUrl(uriArray[i].toString());
-                picture.setFk_publicationId(publication.getPublicationId());
-                System.out.println("The id of the pictures is:");
-                System.out.println(picture.getpictureId());
-                System.out.println("The url of the picture is:");
-                System.out.println(picture.getUrl());
-                System.out.println("The picture belongs to publication:");
-                System.out.println(picture.getFk_publicationId());
-            }
+                String oldPic = "android.resource://com.example.come/2131165270";
+                if (picture.getUrl() != oldPic){
+                    System.out.println(i);
+                    System.out.println(publication.getPublicationId());
+                    System.out.println(picture.getUrl());
+                    picture.setFk_publicationId(publication.getPublicationId());
+                }
+
+        }
+
+
+
+
 
 
         //Uri selectedImageUri = data.getData();
