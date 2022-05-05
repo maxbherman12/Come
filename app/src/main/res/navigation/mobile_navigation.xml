@@ -13,17 +13,17 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.come.ui.search.SearchFragment"
-        android:label="search_fragment"
+        android:label="Search"
         tools:layout="@layout/search_fragment" />
     <fragment
         android:id="@+id/postFragment"
         android:name="com.example.come.ui.post.PostFragment"
-        android:label="post_fragment"
+        android:label="Post"
         tools:layout="@layout/post_fragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.come.ui.profile.ProfileFragment"
-        android:label="profile_fragment"
+        android:label="Profile"
         tools:layout="@layout/profile_fragment" />
 
 </navigation>

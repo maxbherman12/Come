@@ -33,7 +33,10 @@ public class PostFragment extends Fragment {
 
     // private PostViewModel mViewModel;
     EditText captionField;
+    EditText cityField;
+    EditText restaurantField;
     ViewPager viewPager_post;
+
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
     Button postButton;
     public Uri OriginalPath = Uri.parse("android.resource://com.example.come/" + R.drawable.add_your_image);
@@ -52,6 +55,10 @@ public class PostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         postButton = view.findViewById(R.id.button2);
         captionField = view.findViewById(R.id.captionField);
+        cityField = view.findViewById(R.id.city_field);
+        restaurantField = view.findViewById((R.id.restaurant_field));
+
+
         postButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 postButtonClicked();
@@ -106,7 +113,15 @@ public class PostFragment extends Fragment {
         }
 
         User currentUser = db.UserDao().findUserByName(username);
+
+
         String captionOfPost = captionField.getText().toString();
+        String cityOfPost = cityField.getText().toString();
+        String restaurantOfPost = restaurantField.getText().toString();
+
+
+
+
         Publication publication = new Publication();
         publication.setCaption(captionOfPost);
         publication.setFk_userId(currentUser.getUserId());

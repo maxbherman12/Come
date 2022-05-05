@@ -22,15 +22,26 @@
             app:layout_constraintRight_toRightOf="parent"
 
             />
-<!---
-        <TextView
-            android:id="@+id/TextView_Post"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/restaurant_field"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Create your post here"
-            android:textAlignment="center"
-            android:textSize="15dp"
-            app:layout_constraintTop_toTopOf="parent"/>  -->
+            android:ems="10"
+            android:text="Restaurant Name"
+            app:layout_constraintLeft_toRightOf="@id/button2"
+            app:layout_constraintTop_toBottomOf="@id/card_view_post"
+            />
+
+        <EditText
+            android:id="@+id/city_field"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="City"
+            app:layout_constraintRight_toLeftOf="@id/button2"
+            app:layout_constraintTop_toBottomOf="@id/card_view_post"
+            />
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_post"
@@ -69,17 +80,8 @@
                 </androidx.viewpager.widget.ViewPager>
                 <!--android:background="@color/material_dynamic_primary80"-->
 
-           <!-- <TextView
-                android:id="@+id/captionField"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="4dp"
-                android:text="CaptionField"
-                android:textAlignment="center"
-                android:textSize="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager_post" />
-                -->
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
