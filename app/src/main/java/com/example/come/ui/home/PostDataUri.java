@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class PostDataUri {
     String caption;
-    ArrayList<Uri> urisOfPost;
+    Uri[] urisOfPost;
     String name;
     String city;
     double distance;
     String address;
 
-    public PostDataUri(String caption, ArrayList<Uri> urisOfPost, String name, String city) {
+    public PostDataUri(String caption, Uri[] urisOfPost, String name, String city) {
         this.caption = caption;
         this.urisOfPost = urisOfPost;
         this.name = name;
@@ -24,7 +24,7 @@ public class PostDataUri {
         return caption;
     }
 
-    public ArrayList<Uri> getUrisOfPost() {
+    public Uri[] getUrisOfPost() {
             return urisOfPost;
         }
 
