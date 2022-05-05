@@ -16,7 +16,8 @@ public class Publication {
     @PrimaryKey(autoGenerate = true)
     public int publicationId;
     public String caption;
-    //public String location;
+    public String city;
+    public String restaurant;
     public int fk_userId;
 
     public int getPublicationId() {
@@ -34,16 +35,24 @@ public class Publication {
     public void setCaption(String caption) {
         this.caption = caption;
     }
-    /*
-        public String getLocation() {
-            return location;
-        }
 
-        public void setLocation(String location) {
-            this.location = location;
-        }
+    public String getCity() {
+        return city;
+    }
 
-     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
+    }
+
+
+
     public void setFk_userId(int fk_userId) {
         this.fk_userId = fk_userId;
     }

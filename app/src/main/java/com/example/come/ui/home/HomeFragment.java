@@ -103,6 +103,8 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         for (Publication publication : publications){
             String caption = publication.getCaption();
+            String city = publication.getCity();
+            String restaurant = publication.getRestaurant();
             User user = db.UserDao().findUserById(publication.getFk_userId());
             String username = user.getUserName();
             int publicationId = publication.getPublicationId();
@@ -116,7 +118,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     pictures.add(picUri);
                 }
             }
-            postList.add(new PostDataUri(caption, pictures, "Yatai Market", "Madrid"));
+            postList.add(new PostDataUri(caption, pictures, restaurant, city));
         }
 
         return postList;
