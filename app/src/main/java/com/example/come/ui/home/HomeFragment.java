@@ -1,26 +1,23 @@
 package com.example.come.ui.home;
 
-import android.app.PictureInPictureUiState;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 //import android.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.come.BuildConfig;
 import com.example.come.R;
@@ -29,7 +26,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.come.databinding.FragmentHomeBinding;
 import com.example.come.db.Picture;
 import com.example.come.db.Publication;
 import com.example.come.db.RoomDB;
@@ -101,7 +97,32 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     private ArrayList<PostDataUri> setUpUriPosts(){
         ArrayList<PostDataUri> postList = new ArrayList<>();
-        // Uri myUri = Uri.parse(string)
+        RoomDB db;
+        db = RoomDB.getInstance(getContext());
+        List<Publication> publications = db.PublicationDao().getAllPublications();
+        ArrayList<String> captionList = new ArrayList<>();
+        ArrayList<Uri> imageList = new ArrayList<>();
+
+        String caption;
+        Uri image;
+
+        for (Publication publication : publications){
+            caption = publication.getCaption();
+            User user = db.UserDao().findUserById(publication.getFk_userId());
+            String username = user.getUserName();
+            int publicationId = publication.getPublicationId();
+            List<Picture> allPics = db.PictureDao().getAllPictures();
+            ArrayList<Uri> pictures = new ArrayList<>();
+
+            for (Picture picture: allPics){
+                int pubId = picture.getFk_publicationId();
+                if (pubId == publicationId){
+                    Uri picUri = Uri.parse(picture.getUrl());
+                    pictures.add(picUri);
+                }
+            }
+            postList.add(new PostDataUri(caption, pictures, "Yatai Market", "Madrid"));
+        }
 
         return postList;
     }
