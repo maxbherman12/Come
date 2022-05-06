@@ -12,9 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.come.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,11 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel mViewModel;
+    TextView name;
+    TextView username;
+    TextView bio;
+    ImageView image;
+    ListView list;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -32,18 +41,33 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
-        List<String> restaurantList = getRestaurants();
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(view.getContext(),
-                android.R.layout.simple_list_item_1, restaurantList);
-        ListView list = view.findViewById(R.id.restaurant_list);
-        list.setAdapter(listAdapter);
+        // Connect all variables to layout
+        name = view.findViewById(R.id.profile_fullname);
+        username = view.findViewById(R.id.profile_username);
+        bio = view.findViewById(R.id.profile_bio);
+        image = view.findViewById(R.id.profile_image);
+        list = view.findViewById(R.id.restaurant_list);
 
-        // tmp list of restaurants, replace later with fetching from db
-//        listAdapter.notifyDataSetChanged();
+
+        // Create ProfileData object
+        // TODO: Replace hard coded values with database implementation
+        ProfileData profileData = new ProfileData("John Smith","@john_smith_eats",
+                "Here is my bio", R.drawable.profile_photo, getRestaurants());
+
+        name.setText(profileData.getName());
+        username.setText(profileData.getUsername());
+        bio.setText(profileData.getBio());
+        image.setImageResource(profileData.getImage());
+
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_list_item_1, profileData.getToVisitList());
+        list.setAdapter(listAdapter);
+        listAdapter.notifyDataSetChanged();
 
         return view;
     }
 
+    // TODO: Replace this method with database implementation
     public List<String> getRestaurants(){
         List<String> restaurantList = new ArrayList<>();
         String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};

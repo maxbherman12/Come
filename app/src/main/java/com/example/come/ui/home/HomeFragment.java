@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 //import android.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -49,6 +51,8 @@ public class HomeFragment extends Fragment implements LocationListener {
     ArrayList<PostData> posts;
     Location deviceLoc;
     SwipeRefreshLayout swipeRefreshLayout;
+    View globalView;
+    Post_RecyclerViewAdapter post_recyclerViewAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +73,9 @@ public class HomeFragment extends Fragment implements LocationListener {
             updatePostDistance(i);
         }
 
+//        post_recyclerViewAdapter = view.findViewById(R.layout.recycler_view_container);
+
+        globalView = view;
         return view;
     }
 
@@ -80,8 +87,8 @@ public class HomeFragment extends Fragment implements LocationListener {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.my_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
 
-        Post_RecyclerViewAdapter adapter = new Post_RecyclerViewAdapter(getContext(), posts);
-        recyclerView.setAdapter(adapter);
+        post_recyclerViewAdapter = new Post_RecyclerViewAdapter(getContext(), posts);
+        recyclerView.setAdapter(post_recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -230,7 +237,18 @@ public class HomeFragment extends Fragment implements LocationListener {
                     }
                 }
 
-                posts.get(index).setDistance(min/1000);
+
+                // TODO: FIX THIS PART - DOES NOT UPDATE THE POST
+                PostData curPost = posts.get(index);
+                PostData updatedPost = new PostData("IT GOT UPDATED", curPost.getImageArray(),
+                        curPost.getName(), curPost.getCity());
+
+                posts.set(index, updatedPost);
+                post_recyclerViewAdapter.notifyItemChanged(index);
+//                CardView cardView = globalView.findViewById(R.id.cardView);
+//                TextView textView = cardView.findViewWithTag(index);
+//                String distText = min/1000 + " km";
+//                textView.setText(distText);
             }
             @Override
             public void onFailure(Call<Root> call, Throwable t) {

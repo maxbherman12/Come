@@ -15,6 +15,7 @@ public class PostData {
         this.name = name;
         this.city = city;
         this.address = name + " " + city;
+        this.distance = 7.5; // TODO: REMOVE THIS AFTER FIXING ISSUE
     }
 
     public String getName(){ return name; }
