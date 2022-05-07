@@ -15,12 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-//import android.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -40,7 +37,6 @@ import com.example.come.distmatrix.Element;
 import com.example.come.distmatrix.PlacesService;
 import com.example.come.distmatrix.Root;
 import com.example.come.distmatrix.Row;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -273,18 +269,11 @@ public class HomeFragment extends Fragment implements LocationListener {
                     }
                 }
 
-
-                // TODO: FIX THIS PART - DOES NOT UPDATE THE POST
                 PostData curPost = posts.get(index);
-                PostData updatedPost = new PostData("IT GOT UPDATED", curPost.getImageArray(),
-                        curPost.getName(), curPost.getCity());
+                curPost.setDistance(min/1000);
 
-                posts.set(index, updatedPost);
+                posts.set(index, curPost);
                 post_recyclerViewAdapter.notifyItemChanged(index);
-//                CardView cardView = globalView.findViewById(R.id.cardView);
-//                TextView textView = cardView.findViewWithTag(index);
-//                String distText = min/1000 + " km";
-//                textView.setText(distText);
             }
             @Override
             public void onFailure(Call<Root> call, Throwable t) {

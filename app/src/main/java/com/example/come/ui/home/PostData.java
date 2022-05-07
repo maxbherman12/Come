@@ -1,13 +1,15 @@
 package com.example.come.ui.home;
 
 
+import android.annotation.SuppressLint;
+
 public class PostData {
-    String caption;
-    int[] imageArray;
-    String name;
-    String city;
-    double distance;
-    String address;
+    private String caption;
+    private int[] imageArray;
+    private String name;
+    private String city;
+    private double distance;
+    private String address;
 
     public PostData(String caption, int[] images, String name, String city) {
         this.caption = caption;
@@ -15,7 +17,7 @@ public class PostData {
         this.name = name;
         this.city = city;
         this.address = name + " " + city;
-        this.distance = 7.5; // TODO: REMOVE THIS AFTER FIXING ISSUE
+        this.distance = -1.0; // means no distance has been found yet
     }
 
     public String getName(){ return name; }
@@ -35,8 +37,9 @@ public class PostData {
     public double getDistance() { return distance; }
     public void setDistance(double val) { distance = val; }
 
+    @SuppressLint("DefaultLocale")
     public String getDistanceStr() {
-        if (distance == 0.0){
+        if (distance <= 0.0){
             return "";
         }
         return String.format("%.1f", distance) + " km";
