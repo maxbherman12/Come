@@ -217,9 +217,9 @@ public class HomeFragment extends Fragment implements LocationListener {
         RoomDB db;
         db = RoomDB.getInstance(getContext());
 
-        String[] captions= {"Dummy post nr 1","Another Food review","Last review of me"};
+        String[] captions= {"This food market was great, i have been there with my friends and its similar to a restaurant in my hometown","Another Food review","Last review of me"};
         int[][] images= {
-                {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
+                {R.drawable.yatai1, R.drawable.yatai2, R.drawable.yatai3},
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3},
                 {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3}
         };
