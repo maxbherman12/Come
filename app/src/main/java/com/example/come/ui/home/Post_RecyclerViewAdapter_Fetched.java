@@ -25,8 +25,6 @@ public class Post_RecyclerViewAdapter_Fetched extends RecyclerView.Adapter<Post_
         this.posts=posts;
     }
 
-
-
     @NonNull
     @Override
     public Post_RecyclerViewAdapter_Fetched.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
