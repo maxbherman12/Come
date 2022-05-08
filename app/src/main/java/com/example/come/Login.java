@@ -56,7 +56,10 @@ public class Login extends AppCompatActivity {
                 else{
                     String username = userDB.getUserName();
                     String pass = userDB.getPassword();
+
                     if (username.equals(userLog) && pass.equals(passLog)){
+                        //Here we have to store the current user to use during all the connection
+
                         // TODO Auto-generated method stub
                         Intent myIntent = new Intent(Login.this, MainActivity.class);
                         //myIntent.putExtra("key", value); //Optional parameters
@@ -73,4 +76,5 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
 }

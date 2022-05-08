@@ -109,9 +109,6 @@ public class PostFragment extends Fragment {
         String cityOfPost = cityField.getText().toString();
         String restaurantOfPost = restaurantField.getText().toString();
 
-
-
-
         Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser.getUserName());
         db.PublicationDao().insertPublication(publication);
         List<Publication> allP =  db.PublicationDao().getAllPublications();
