@@ -52,31 +52,31 @@ public class Picture {
 
     public static Picture[] populatePicture() {
         return new Picture[] {
-                new Picture("dinner.jpg", 1),
-                new Picture("dinner2.jpg", 1),
+                new Picture("R.drawable.dinner.jpg", 1),
+                new Picture("R.drawable.dinner2.jpg", 1),
 
-                new Picture("brunch.jpg", 2),
-                new Picture("brunch2.jpeg", 2),
-                new Picture("brunch3.jpeg", 2),
+                new Picture("R.drawable.brunch.jpg", 2),
+                new Picture("R.drawable.brunch2.jpeg", 2),
+                new Picture("R.drawable.brunch3.jpeg", 2),
 
-                new Picture("yataimarket.jpeg", 3),
-                new Picture("yatai1.jpg", 3),
-                new Picture("yatai2.jpg", 3),
-                new Picture("yatai3.jpg", 3),
+                new Picture("R.drawable.yataimarket.jpeg", 3),
+                new Picture("R.drawable.yatai1.jpg", 3),
+                new Picture("R.drawable.yatai2.jpg", 3),
+                new Picture("R.drawable.yatai3.jpg", 3),
 
 
-                new Picture("honestgreens.jpeg", 4),
-                new Picture("honestgreens2.jpeg", 4),
-                new Picture("honestgreen3.jpeg", 4),
-                new Picture("honestgreens4.jpeg", 4),
+                new Picture("R.drawable.honestgreens.jpeg", 4),
+                new Picture("R.drawable.honestgreens2.jpeg", 4),
+                new Picture("R.drawable.honestgreen3.jpeg", 4),
+                new Picture("R.drawable.honestgreens4.jpeg", 4),
 
-                new Picture("humuseria.jpeg", 5),
-                new Picture("humuseria2.jpeg", 5),
+                new Picture("R.drawable.humuseria.jpeg", 5),
+                new Picture("R.drawable.humuseria2.jpeg", 5),
 
-                new Picture("spotrestaurant.jpeg", 6),
+                new Picture("R.drawable.spotrestaurant.jpeg", 6),
 
-                new Picture("burger.jpeg", 7),
-                new Picture("burger2.jpeg", 7)
+                new Picture("R.drawable.burger.jpeg", 7),
+                new Picture("R.drawable.burger2.jpeg", 7)
 
 
 
