@@ -19,9 +19,20 @@ public class User {
     @NonNull
     public String password;
 
-    public User(@NonNull String userName, @NonNull String password) {
+    public String profilePhoto;
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public User(@NonNull String userName, @NonNull String password, String profilePhoto) {
         this.userName = userName;
         this.password = password;
+        this.profilePhoto = profilePhoto;
     }
 
     @NonNull
@@ -44,13 +55,13 @@ public class User {
 
     public static User[] populateUser() {
         return new User[] {
-                new User("come", "come"),
-                new User("gorka", "come"),
-                new User("max", "come"),
-                new User("sören", "come"),
-                new User("michael", "come"),
-                new User("theEater", "come"),
-                new User("burgerLover", "come")
+                new User("come", "come", "comeprofile.jpg"),
+                new User("gorka", "come", "gorka.JPG"),
+                new User("max", "come", "max.jpg"),
+                new User("sören", "come", "soren.jpg"),
+                new User("michael", "come", "michael.jpeg"),
+                new User("theEater", "come", "bigboy.jpg"),
+                new User("burgerLover", "come", "burgerboy.jpg")
 
         };
     }

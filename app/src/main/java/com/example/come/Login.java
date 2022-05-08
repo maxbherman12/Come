@@ -37,7 +37,8 @@ public class Login extends AppCompatActivity {
         if (allUsers.size()== 0) {
             String username = "come";
             String password = "come";
-            User newUser = new User(username, password);
+            String photo = "comeprofile.jpg";
+            User newUser = new User(username, password, photo);
             db.UserDao().insertUser(newUser);
         }
 

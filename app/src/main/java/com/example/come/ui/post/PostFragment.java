@@ -93,12 +93,13 @@ public class PostFragment extends Fragment {
     public void postButtonClicked() {
 
         RoomDB db = RoomDB.getInstance(getContext());
-        User user = new User("come","come");
+
+        User user = new User("come","come", "comeprofile.jpg");
         db.UserDao().insertUser(user);
 
         if (db.UserDao().getAllUsers() == null) {
 
-            User newUser = new User("come","come");
+            User newUser = new User("come","come", "comeprofile.jpg");
             db.UserDao().insertUser(newUser);
         }
 
