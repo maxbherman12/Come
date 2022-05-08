@@ -92,28 +92,17 @@ public class PostFragment extends Fragment {
 
     public void postButtonClicked() {
 
-        RoomDB db;
-        db = RoomDB.getInstance(getContext());
-
-
-        String username = "come";
-        String password = "come";
-        User user = new User();
-        user.setUserName(username);
-        user.setPassword(password);
-
+        RoomDB db = RoomDB.getInstance(getContext());
+        User user = new User("come","come");
         db.UserDao().insertUser(user);
 
         if (db.UserDao().getAllUsers() == null) {
 
-            User newUser = new User();
-            newUser.setUserName(username);
-            newUser.setPassword(password);
-
+            User newUser = new User("come","come");
             db.UserDao().insertUser(newUser);
         }
 
-        User currentUser = db.UserDao().findUserByName(username);
+        User currentUser = db.UserDao().findUserByName(user.getUserName());
 
 
         String captionOfPost = captionField.getText().toString();
@@ -123,21 +112,16 @@ public class PostFragment extends Fragment {
 
 
 
-        Publication publication = new Publication();
-        publication.setCaption(captionOfPost);
-        publication.setFk_userId(currentUser.getUserId());
-        publication.setCity(cityOfPost);
-        publication.setRestaurant(restaurantOfPost);
+        Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser.getUserName());
         db.PublicationDao().insertPublication(publication);
         List<Publication> allP =  db.PublicationDao().getAllPublications();
         Publication lastOne = allP.get(allP.size()-1);
         int pID = lastOne.getPublicationId();
         for(int i = 0; i < uriArray.length-1; i++){
-                Picture picture = new Picture();
-                picture.setUrl(uriArray[i].toString());
+                String uri = uriArray[i].toString();
                 String oldPic = "android.resource://com.example.come/2131165270";
-                if (picture.getUrl() != oldPic){
-                    picture.setFk_publicationId(pID);
+                if (uri != oldPic){
+                    Picture picture = new Picture(uriArray[i].toString(), pID);
                     db.PictureDao().insertPicture(picture);
                 }
 

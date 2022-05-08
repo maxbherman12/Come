@@ -6,10 +6,10 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "publication", foreignKeys = @ForeignKey(entity = User.class,
-        parentColumns = "userId",
-        childColumns = "fk_userId",
+        parentColumns = "userName",
+        childColumns = "fk_userName",
         onDelete = ForeignKey.CASCADE),
-        indices = {@Index(value = "publicationId", unique = true), @Index(value = "fk_userId")})
+        indices = {@Index(value = "publicationId", unique = true), @Index(value = "fk_userName")})
 public class Publication {
 
     //Creating id of the table
@@ -18,7 +18,14 @@ public class Publication {
     public String caption;
     public String city;
     public String restaurant;
-    public int fk_userId;
+    public String fk_userName;
+
+    public Publication(String caption, String city, String restaurant, String fk_userName) {
+        this.caption = caption;
+        this.city = city;
+        this.restaurant = restaurant;
+        this.fk_userName = fk_userName;
+    }
 
     public int getPublicationId() {
         return publicationId;
@@ -50,10 +57,23 @@ public class Publication {
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
     }
-    public void setFk_userId(int fk_userId) {
-        this.fk_userId = fk_userId;
+    public void setFk_userName(String fk_userName) {
+        this.fk_userName = fk_userName;
     }
-    public int getFk_userId() {
-        return fk_userId;
+    public String getFk_userName() {
+        return fk_userName;
+    }
+
+    public static Publication[] populatePublication() {
+        return new Publication[] {
+                new Publication("Best dinner of my live!!", "Madrid", "La Habanera", "come"),
+                new Publication("I love this brunch", "Madrid", "La Rollerie", "gorka"),
+                new Publication("This oriental market is crashing it!", "Madrid", "Yatai Market", "max"),
+                new Publication("Healthy & tasty meal", "Madrid", "Honest Greens", "sören"),
+                new Publication("Perfect place for hummus lovers", "Madrid", "Humuseria", "michael"),
+                new Publication("This restaurant has the perfect spots!", "Madrid", "Ella Sky Bar", "theEater"),
+                new Publication("I am dreaming with this burger", "Madrid", "Steakburger", "burgerLover")
+
+        };
     }
 }

@@ -27,20 +27,21 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         RoomDB db = RoomDB.getInstance(getApplicationContext());
-        userL = (EditText)findViewById(R.id.EditTextUsername);
-        passL = (EditText)findViewById(R.id.EditTextPassword);
-        Button loginButton = (Button) findViewById(R.id.loginButton);
+        userL = findViewById(R.id.EditTextUsername);
+        passL = findViewById(R.id.EditTextPassword);
+        Button loginButton = findViewById(R.id.loginButton);
         //Create a condition that if there is no user create a default one
+
         List<User> allUsers = db.UserDao().getAllUsers();
+
         if (allUsers.size()== 0) {
             String username = "come";
             String password = "come";
-            User newUser = new User();
-            newUser.setUserName(username);
-            newUser.setPassword(password);
-
+            User newUser = new User(username, password);
             db.UserDao().insertUser(newUser);
         }
+
+
         loginButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
