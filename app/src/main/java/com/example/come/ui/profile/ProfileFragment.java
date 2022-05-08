@@ -21,20 +21,15 @@ import com.example.come.R;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
-
-    private ProfileViewModel mViewModel;
     TextView name;
     TextView username;
     TextView bio;
     ImageView image;
     ListView list;
-
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,11 +37,11 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
         // Connect all variables to layout
-        name = view.findViewById(R.id.profile_fullname);
-        username = view.findViewById(R.id.profile_username);
-        bio = view.findViewById(R.id.profile_bio);
-        image = view.findViewById(R.id.profile_image);
-        list = view.findViewById(R.id.restaurant_list);
+        name        = view.findViewById(R.id.profile_fullname);
+        username    = view.findViewById(R.id.profile_username);
+        bio         = view.findViewById(R.id.profile_bio);
+        image       = view.findViewById(R.id.profile_image);
+        list        = view.findViewById(R.id.restaurant_list);
 
 
         // Create ProfileData object
@@ -54,6 +49,7 @@ public class ProfileFragment extends Fragment {
         ProfileData profileData = new ProfileData("John Smith","@john_smith_eats",
                 "Here is my bio", R.drawable.profile_photo, getRestaurants());
 
+        // Set values
         name.setText(profileData.getName());
         username.setText(profileData.getUsername());
         bio.setText(profileData.getBio());
@@ -69,11 +65,7 @@ public class ProfileFragment extends Fragment {
 
     // TODO: Replace this method with database implementation
     public List<String> getRestaurants(){
-        List<String> restaurantList = new ArrayList<>();
         String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};
-        for(String restaurant: restaurants){
-            restaurantList.add(restaurant);
-        }
-        return restaurantList;
+        return new ArrayList<>(Arrays.asList(restaurants));
     }
 }

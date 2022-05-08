@@ -2,15 +2,16 @@ package com.example.come.ui.search;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,20 +28,15 @@ import com.example.come.db.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
     ListView listView;
     String searchKey;
     RoomDB db;
-    List<User> allUsers;
-    List<User> filteredUsers = new ArrayList<>();
+    List<User> allUsers, filteredUsers;
 
-    public static SearchFragment newInstance() {
-        return new SearchFragment();
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -60,12 +56,12 @@ public class SearchFragment extends Fragment {
 
         searchKey = ""; // list should contain no users when nothing in search bar
         filteredUsers = filterUsers(searchKey);
-
         MyAdapter adapter = new MyAdapter(view.getContext(), filteredUsers);
         listView.setAdapter(adapter);
 
         EditText searchBar = view.findViewById(R.id.search_edit_text);
         searchBar.addTextChangedListener(new TextWatcher() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchKey = charSequence.toString();
@@ -80,7 +76,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    class MyAdapter extends ArrayAdapter<User> {
+    static class MyAdapter extends ArrayAdapter<User> {
         Context context;
         List<User> users;
 
@@ -97,6 +93,7 @@ public class SearchFragment extends Fragment {
                     (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             @SuppressLint("ViewHolder") View row =
                     layoutInflater.inflate(R.layout.search_row, parent, false);
+
             ImageView photo = row.findViewById(R.id.search_profile_photo);
             TextView username = row.findViewById(R.id.search_username);
             Button btn = row.findViewById(R.id.search_follow_btn);
@@ -106,6 +103,7 @@ public class SearchFragment extends Fragment {
             photo.setImageResource(R.drawable.profile_photo);
 
             btn.setOnClickListener(view -> {
+                // TODO: Replace this with a method that determines whether the user follows the other user
                 String current = (String) btn.getText();
                 String newStr = current.equals("Follow") ? "Following" : "Follow";
                 btn.setText(newStr);
@@ -117,6 +115,13 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    /**
+     * Filters list of all users to only include those whose username contains the search key
+     * After filtering the list, it is then sorted to prefer options that begin with the key
+     * @param key - value typed into the search bar
+     * @return sorted and filtered list
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<User> filterUsers(String key){
         List<User> ret = new ArrayList<>();
         if(!key.equals("")){
@@ -125,9 +130,12 @@ public class SearchFragment extends Fragment {
                     ret.add(user);
                 }
             }
+
+            // Sort the list to prefer usernames that begin with the search key
+            ret.sort((user1, user2) -> user1.getUserName().startsWith(key) ?
+                    (user2.getUserName().startsWith(key) ? 0 : -1) : 1);
         }
 
-        // TODO: Add sort that prioritizes key being at the beginning
         return ret;
     }
 }
