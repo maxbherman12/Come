@@ -9,10 +9,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "user",
         indices = {@Index(value = "userName", unique = true)})
 public class User {
-    //Creating id of the table
-    @PrimaryKey(autoGenerate = true)
-    public int userId;
 
+    @PrimaryKey()
     @ColumnInfo(defaultValue = "come")
     @NonNull
     public String userName;
@@ -21,13 +19,9 @@ public class User {
     @NonNull
     public String password;
 
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public User(@NonNull String userName, @NonNull String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
     @NonNull
@@ -46,5 +40,18 @@ public class User {
 
     public void setPassword(@NonNull String password) {
         this.password = password;
+    }
+
+    public static User[] populateUser() {
+        return new User[] {
+                new User("come", "come"),
+                new User("gorka", "come"),
+                new User("max", "come"),
+                new User("sören", "come"),
+                new User("michael", "come"),
+                new User("theEater", "come"),
+                new User("burgerLover", "come")
+
+        };
     }
 }

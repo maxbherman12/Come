@@ -8,7 +8,7 @@ import java.util.List;
 public class UserAllPublications {
     @Embedded
     public User user;
-    @Relation(parentColumn = "userId",
-            entityColumn = "fk_userId")
+    @Relation(parentColumn = "userName",
+            entityColumn = "fk_userName")
     public List<Publication> publications;
 }

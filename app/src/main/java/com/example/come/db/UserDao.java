@@ -13,11 +13,12 @@ import java.util.List;
 @Dao
 public interface UserDao {
 
-    @Query("SELECT * FROM User WHERE userId = :id LIMIT 1")
-    User findUserById(int id);
 
     @Query("SELECT * FROM User WHERE userName = :username LIMIT 1")
     User findUserByName(String username);
+
+    @Query("SELECT password FROM User WHERE password = :password LIMIT 1")
+    String findUserByPass(String password);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insertUser(User user);
