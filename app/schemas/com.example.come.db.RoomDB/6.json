@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "204ed723158fb4814723699e82c84170",
+    "identityHash": "ba5d3dc11498d0ace624a9c963728747",
     "entities": [
       {
         "tableName": "user",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT NOT NULL DEFAULT 'come', `password` TEXT NOT NULL DEFAULT 'come', PRIMARY KEY(`userName`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT NOT NULL DEFAULT 'come', `password` TEXT NOT NULL DEFAULT 'come', `profilePhoto` TEXT, PRIMARY KEY(`userName`))",
         "fields": [
           {
             "fieldPath": "userName",
@@ -21,6 +21,12 @@
             "affinity": "TEXT",
             "notNull": true,
             "defaultValue": "'come'"
+          },
+          {
+            "fieldPath": "profilePhoto",
+            "columnName": "profilePhoto",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -172,7 +178,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '204ed723158fb4814723699e82c84170')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba5d3dc11498d0ace624a9c963728747')"
     ]
   }
 }

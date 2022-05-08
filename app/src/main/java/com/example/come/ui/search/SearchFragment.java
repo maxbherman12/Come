@@ -46,8 +46,9 @@ public class SearchFragment extends Fragment {
         listView = view.findViewById(R.id.search_list);
 
 //        TODO: FIX DB SO THAT getAllUsers() actually returns all users and then remove this
-//        db = RoomDB.getInstance(getContext());
-//        allUsers = db.UserDao().getAllUsers();
+        db = RoomDB.getInstance(getContext());
+        allUsers = db.UserDao().getAllUsers();
+        /*
         allUsers = Arrays.asList(new User("come", "come"),
                 new User("gorka", "come"),
                 new User("max", "come"),
@@ -55,7 +56,7 @@ public class SearchFragment extends Fragment {
                 new User("michael", "come"),
                 new User("theEater", "come"),
                 new User("burgerLover", "come"));
-
+         */
         searchKey = ""; // list should contain no users when nothing in search bar
         filteredUsers = filterUsers(searchKey);
         MyAdapter adapter = new MyAdapter(view.getContext(), filteredUsers);
