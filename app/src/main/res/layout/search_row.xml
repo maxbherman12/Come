@@ -28,8 +28,8 @@
             android:id="@+id/search_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\@username"
-            android:textSize="17dp"/>
+            android:text="@string/username"
+            android:textSize="17sp"/>
     </LinearLayout>
     <Space
         android:layout_width="20dp"
@@ -40,6 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:textSize="12sp"
-        android:text="Follow" />
+        android:text="@string/follow" />
 
 </RelativeLayout>

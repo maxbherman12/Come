@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.example.come.db.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class SearchFragment extends Fragment {
     ListView listView;
@@ -43,7 +45,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         listView = view.findViewById(R.id.search_list);
 
-        // TODO: FIX DB SO THAT getAllUsers() actually returns all users and then remove this
+//        TODO: FIX DB SO THAT getAllUsers() actually returns all users and then remove this
 //        db = RoomDB.getInstance(getContext());
 //        allUsers = db.UserDao().getAllUsers();
         allUsers = Arrays.asList(new User("come", "come"),
@@ -76,7 +78,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    static class MyAdapter extends ArrayAdapter<User> {
+    class MyAdapter extends ArrayAdapter<User> {
         Context context;
         List<User> users;
 
@@ -86,6 +88,7 @@ public class SearchFragment extends Fragment {
             this.users = _users;
         }
 
+        @SuppressLint("SetTextI18n")
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent ){
@@ -98,17 +101,20 @@ public class SearchFragment extends Fragment {
             TextView username = row.findViewById(R.id.search_username);
             Button btn = row.findViewById(R.id.search_follow_btn);
 
-            // TODO: replace this with list of photos
-            username.setText(users.get(position).getUserName());
+            // TODO: replace this with getting the photo value
             photo.setImageResource(R.drawable.profile_photo);
+            username.setText(users.get(position).getUserName());
+            btn.setText(follows("self", (String) username.getText()) ? "Following" : "Follow");
 
             btn.setOnClickListener(view -> {
-                // TODO: Replace this with a method that determines whether the user follows the other user
                 String current = (String) btn.getText();
-                String newStr = current.equals("Follow") ? "Following" : "Follow";
-                btn.setText(newStr);
-
-                // TODO: UPDATE THIS SO THAT IT CHANGES THE FOLLOWER TABLE TO FOLLOW THAT PERSON
+                if(current.equals("Follow")){
+                    btn.setText("Following");
+                    followUser("self", (String) username.getText());
+                } else{
+                    btn.setText("Follow");
+                    unfollowUser("self", (String) username.getText());
+                }
             });
 
             return row;
@@ -137,5 +143,21 @@ public class SearchFragment extends Fragment {
         }
 
         return ret;
+    }
+
+    // Temporary follow method to be later replaced
+    private void followUser(String user, String userToBeFollowed){
+        Log.v(null, user + " followed " + userToBeFollowed);
+    }
+
+    // Temporary unfollow method to be later replaced
+    private void unfollowUser(String user, String userToBeFollowed){
+        Log.v(null, user + " unfollowed " + userToBeFollowed);
+    }
+
+    // Temporary method for checking if one user follows another to be later replaced
+    // Returns true if user follows user2. For now lets make it random
+    private boolean follows(String user, String user2){
+        return new Random().nextBoolean();
     }
 }
