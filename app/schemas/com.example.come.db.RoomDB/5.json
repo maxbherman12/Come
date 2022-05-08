@@ -1,0 +1,178 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 5,
+    "identityHash": "204ed723158fb4814723699e82c84170",
+    "entities": [
+      {
+        "tableName": "user",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT NOT NULL DEFAULT 'come', `password` TEXT NOT NULL DEFAULT 'come', PRIMARY KEY(`userName`))",
+        "fields": [
+          {
+            "fieldPath": "userName",
+            "columnName": "userName",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'come'"
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'come'"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_user_userName",
+            "unique": true,
+            "columnNames": [
+              "userName"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_userName` ON `${TABLE_NAME}` (`userName`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "publication",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`publicationId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `caption` TEXT, `city` TEXT, `restaurant` TEXT, `fk_userName` TEXT, FOREIGN KEY(`fk_userName`) REFERENCES `user`(`userName`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "publicationId",
+            "columnName": "publicationId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caption",
+            "columnName": "caption",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "restaurant",
+            "columnName": "restaurant",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fk_userName",
+            "columnName": "fk_userName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "publicationId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_publication_publicationId",
+            "unique": true,
+            "columnNames": [
+              "publicationId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_publication_publicationId` ON `${TABLE_NAME}` (`publicationId`)"
+          },
+          {
+            "name": "index_publication_fk_userName",
+            "unique": false,
+            "columnNames": [
+              "fk_userName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_publication_fk_userName` ON `${TABLE_NAME}` (`fk_userName`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "user",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "fk_userName"
+            ],
+            "referencedColumns": [
+              "userName"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "picture",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pictureId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT, `fk_publicationId` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "pictureId",
+            "columnName": "pictureId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fk_publicationId",
+            "columnName": "fk_publicationId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pictureId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_picture_pictureId",
+            "unique": true,
+            "columnNames": [
+              "pictureId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_picture_pictureId` ON `${TABLE_NAME}` (`pictureId`)"
+          },
+          {
+            "name": "index_picture_fk_publicationId",
+            "unique": false,
+            "columnNames": [
+              "fk_publicationId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_picture_fk_publicationId` ON `${TABLE_NAME}` (`fk_publicationId`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '204ed723158fb4814723699e82c84170')"
+    ]
+  }
+}

@@ -22,6 +22,11 @@ public class Picture {
     public String url;
     public int fk_publicationId;
 
+    public Picture(String url, int fk_publicationId) {
+        this.url = url;
+        this.fk_publicationId = fk_publicationId;
+    }
+
     public int getpictureId() {
         return pictureId;
     }
@@ -43,5 +48,40 @@ public class Picture {
     }
     public int getFk_publicationId() {
         return fk_publicationId;
+    }
+
+    public static Picture[] populatePicture() {
+        return new Picture[] {
+                new Picture("dinner.jpg", 1),
+                new Picture("dinner2.jpg", 1),
+
+                new Picture("brunch.jpg", 2),
+                new Picture("brunch2.jpeg", 2),
+                new Picture("brunch3.jpeg", 2),
+
+                new Picture("yataimarket.jpeg", 3),
+                new Picture("yatai1.jpg", 3),
+                new Picture("yatai2.jpg", 3),
+                new Picture("yatai3.jpg", 3),
+
+
+                new Picture("honestgreens.jpeg", 4),
+                new Picture("honestgreens2.jpeg", 4),
+                new Picture("honestgreen3.jpeg", 4),
+                new Picture("honestgreens4.jpeg", 4),
+
+                new Picture("humuseria.jpeg", 5),
+                new Picture("humuseria2.jpeg", 5),
+
+                new Picture("spotrestaurant.jpeg", 6),
+
+                new Picture("burger.jpeg", 7),
+                new Picture("burger2.jpeg", 7)
+
+
+
+
+
+        };
     }
 }

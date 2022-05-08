@@ -10,5 +10,5 @@ public class PublicationAllPictures {
     public Publication publication;
     @Relation(parentColumn = "publicationId",
             entityColumn = "fk_publicationId")
-    public List<Picture> pictureList;
+    public List<Picture> pictures;
 }
