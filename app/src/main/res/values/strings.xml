@@ -16,4 +16,5 @@
     <string name="remove">Remove</string>
     <string name="place_to_visit">Place to visit</string>
     <string name="add_restaurant_to_list">Add restaurant to list</string>
+    <string name="captionfield">CaptionField</string>
 </resources>
