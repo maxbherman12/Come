@@ -64,16 +64,4 @@ public class Publication {
         return fk_userName;
     }
 
-    public static Publication[] populatePublication() {
-        return new Publication[] {
-                new Publication("Best dinner of my live!!", "Madrid", "La Habanera", "come"),
-                new Publication("I love this brunch", "Madrid", "La Rollerie", "gorka"),
-                new Publication("This oriental market is crashing it!", "Madrid", "Yatai Market", "max"),
-                new Publication("Healthy & tasty meal", "Madrid", "Honest Greens", "sören"),
-                new Publication("Perfect place for hummus lovers", "Madrid", "Humuseria", "michael"),
-                new Publication("This restaurant has the perfect spots!", "Madrid", "Ella Sky Bar", "theEater"),
-                new Publication("I am dreaming with this burger", "Madrid", "Steakburger", "burgerLover")
-
-        };
-    }
 }
