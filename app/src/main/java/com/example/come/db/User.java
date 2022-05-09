@@ -17,13 +17,29 @@ public class User {
     @ColumnInfo(name = "password")
     @NonNull
     public String password;
+    @ColumnInfo(name = "name")
+    public String name;
     @ColumnInfo(name = "profilePhoto")
     public String profilePhoto;
     @ColumnInfo(name = "bio")
     public String bio;
 
+    public User(@NonNull String userName, @NonNull String password, String profilePhoto) {
+        this.userName = userName;
+        this.password = password;
+        this.profilePhoto = profilePhoto;
+    }
+
     public String getBio() {
         return bio;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setBio(String bio) {
@@ -38,11 +54,7 @@ public class User {
         this.profilePhoto = profilePhoto;
     }
 
-    public User(@NonNull String userName, @NonNull String password, String profilePhoto) {
-        this.userName = userName;
-        this.password = password;
-        this.profilePhoto = profilePhoto;
-    }
+
 
     @NonNull
     public String getUserName() {
@@ -60,19 +72,6 @@ public class User {
 
     public void setPassword(@NonNull String password) {
         this.password = password;
-    }
-
-    public static User[] populateUser() {
-        return new User[] {
-                new User("come", "come", "comeprofile.jpg"),
-                new User("gorka", "come", "gorka.JPG"),
-                new User("max", "come", "max.jpg"),
-                new User("sören", "come", "soren.jpg"),
-                new User("michael", "come", "michael.jpeg"),
-                new User("theEater", "come", "bigboy.jpg"),
-                new User("burgerLover", "come", "burgerboy.jpg")
-
-        };
     }
 
     public String toString(){
