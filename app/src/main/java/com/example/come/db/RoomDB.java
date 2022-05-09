@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities={User.class, Publication.class, Picture.class}, version=7)
+@Database(entities={User.class, Publication.class, Picture.class}, version=8)
         //autoMigrations = {@AutoMigration(from = 5, to = 6)})
 public abstract class RoomDB extends RoomDatabase{
     //Database instance creation
@@ -37,7 +37,7 @@ public abstract class RoomDB extends RoomDatabase{
     }
     private static RoomDB buildDatabase(final Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), RoomDB.class, DATABASE_NAME).
-                        createFromAsset("UsedDB.db").
+                        createFromAsset("userDatabase.db").
                         allowMainThreadQueries().
                         fallbackToDestructiveMigration().
                         build();

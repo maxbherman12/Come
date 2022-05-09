@@ -23,12 +23,26 @@ public class User {
     public String profilePhoto;
     @ColumnInfo(name = "bio")
     public String bio;
+    @ColumnInfo(name= "restaurantList")
+    public String restaurantList;
 
-    public User(@NonNull String userName, @NonNull String password, String profilePhoto) {
+    public User(@NonNull String userName, @NonNull String password, String name, String profilePhoto, String bio, String restaurantList) {
         this.userName = userName;
         this.password = password;
+        this.name = name;
         this.profilePhoto = profilePhoto;
+        this.bio = bio;
+        this.restaurantList = restaurantList;
     }
+
+    public String getRestaurantList() {
+        return restaurantList;
+    }
+
+    public void setRestaurantList(String restaurantList) {
+        this.restaurantList = restaurantList;
+    }
+
 
     public String getBio() {
         return bio;
@@ -53,8 +67,6 @@ public class User {
     public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
     }
-
-
 
     @NonNull
     public String getUserName() {
