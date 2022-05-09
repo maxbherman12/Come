@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.come.MyApplication;
 import com.example.come.R;
 
 import org.w3c.dom.Text;
@@ -43,10 +44,12 @@ public class ProfileFragment extends Fragment {
         image       = view.findViewById(R.id.profile_image);
         list        = view.findViewById(R.id.restaurant_list);
 
-
+        //get the username
+        String loggedInUser = ((MyApplication) getActivity().getApplication()).getSomeVariable();
+        loggedInUser = "@"+loggedInUser;
         // Create ProfileData object
         // TODO: Replace hard coded values with database implementation
-        ProfileData profileData = new ProfileData("John Smith","@john_smith_eats",
+        ProfileData profileData = new ProfileData(loggedInUser,loggedInUser,
                 "Here is my bio", R.drawable.profile_photo, getRestaurants());
 
         // Set values
