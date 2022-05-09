@@ -2,6 +2,8 @@ package com.example.come.ui.profile;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,12 +61,47 @@ public class ProfileFragment extends Fragment {
         bio.setText(profileData.getBio());
         image.setImageResource(profileData.getImage());
 
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(view.getContext(),
-                android.R.layout.simple_list_item_1, profileData.getToVisitList());
+        MyAdapter listAdapter = new MyAdapter(view.getContext(), profileData.getToVisitList());
         list.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
 
         return view;
+    }
+
+    static class MyAdapter extends ArrayAdapter<String> {
+        Context context;
+        List<String> list;
+
+        public MyAdapter(@NonNull Context context, List<String> lst) {
+            super(context, android.R.layout.simple_list_item_1, lst);
+            this.context = context;
+            this.list = lst;
+        }
+
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent ){
+            LayoutInflater layoutInflater =
+                    (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            @SuppressLint("ViewHolder") View row =
+                    layoutInflater.inflate(R.layout.profile_row, parent, false);
+
+            TextView item = row.findViewById(R.id.profile_list_item);
+            Button btn = row.findViewById(R.id.profile_list_btn);
+
+            item.setText(list.get(position));
+
+            btn.setOnClickListener(view -> {
+                list.remove(position);
+                notifyDataSetChanged();
+            });
+
+            return row;
+        }
+
+        @Override
+        public boolean isEnabled(int position){
+            return false;
+        }
     }
 
     // TODO: Replace this method with database implementation

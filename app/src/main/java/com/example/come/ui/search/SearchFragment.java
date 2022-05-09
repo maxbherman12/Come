@@ -2,12 +2,15 @@ package com.example.come.ui.search;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -22,11 +25,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.come.R;
 import com.example.come.db.RoomDB;
 import com.example.come.db.User;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,26 +42,18 @@ public class SearchFragment extends Fragment {
     String searchKey;
     RoomDB db;
     List<User> allUsers, filteredUsers;
+    View view;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.search_fragment, container, false);
+        view = inflater.inflate(R.layout.search_fragment, container, false);
         listView = view.findViewById(R.id.search_list);
 
-//        TODO: FIX DB SO THAT getAllUsers() actually returns all users and then remove this
         db = RoomDB.getInstance(getContext());
         allUsers = db.UserDao().getAllUsers();
-        /*
-        allUsers = Arrays.asList(new User("come", "come"),
-                new User("gorka", "come"),
-                new User("max", "come"),
-                new User("sören", "come"),
-                new User("michael", "come"),
-                new User("theEater", "come"),
-                new User("burgerLover", "come"));
-         */
+
         searchKey = ""; // list should contain no users when nothing in search bar
         filteredUsers = filterUsers(searchKey);
         MyAdapter adapter = new MyAdapter(view.getContext(), filteredUsers);
@@ -102,8 +99,14 @@ public class SearchFragment extends Fragment {
             TextView username = row.findViewById(R.id.search_username);
             Button btn = row.findViewById(R.id.search_follow_btn);
 
+            // Need to remove file extension for this to work
+            String imgFilepath = users.get(position).getProfilePhoto();
+            String uri = "@drawable/" + imgFilepath.substring(0, imgFilepath.indexOf('.'));
+            int imageResource =
+                    getResources().getIdentifier(uri, null, context.getPackageName());
+
             // TODO: replace this with getting the photo value
-            photo.setImageResource(R.drawable.profile_photo);
+            photo.setImageResource(imageResource);
             username.setText(users.get(position).getUserName());
             btn.setText(follows("self", (String) username.getText()) ? "Following" : "Follow");
 
@@ -111,10 +114,10 @@ public class SearchFragment extends Fragment {
                 String current = (String) btn.getText();
                 if(current.equals("Follow")){
                     btn.setText("Following");
-                    followUser("self", (String) username.getText());
+                    followUser("You", (String) username.getText());
                 } else{
                     btn.setText("Follow");
-                    unfollowUser("self", (String) username.getText());
+                    unfollowUser("You", (String) username.getText());
                 }
             });
 
@@ -131,6 +134,7 @@ public class SearchFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<User> filterUsers(String key){
         List<User> ret = new ArrayList<>();
+        if(key.equals("@all")) return allUsers;
         if(!key.equals("")){
             for(User user: allUsers){
                 if(user.getUserName().toLowerCase().contains(key.toLowerCase())){
@@ -148,12 +152,12 @@ public class SearchFragment extends Fragment {
 
     // Temporary follow method to be later replaced
     private void followUser(String user, String userToBeFollowed){
-        Log.v(null, user + " followed " + userToBeFollowed);
+        Toast.makeText(view.getContext(), user + " followed " + userToBeFollowed, Toast.LENGTH_SHORT).show();
     }
 
     // Temporary unfollow method to be later replaced
     private void unfollowUser(String user, String userToBeFollowed){
-        Log.v(null, user + " unfollowed " + userToBeFollowed);
+        Toast.makeText(view.getContext(), user + " unfollowed " + userToBeFollowed, Toast.LENGTH_SHORT).show();
     }
 
     // Temporary method for checking if one user follows another to be later replaced
