@@ -28,10 +28,8 @@ public class Login extends AppCompatActivity {
 
         List<User> allUsers = db.UserDao().getAllUsers();
         if (allUsers.size()== 0) {
-            String username = "come";
-            String password = "come";
-            String photo = "comeprofile.jpg";
-            User newUser = new User(username, password, photo);
+            User newUser = new User("come", "come", "Come",
+                    "comeprofile.jpg","","");
             db.UserDao().insertUser(newUser);
         }
 
@@ -49,7 +47,7 @@ public class Login extends AppCompatActivity {
 
                 if (username.equals(userLog) && pass.equals(passLog)){
                     //Here we have to store the current user to use during all the connection
-                    saveUserData(userDB);
+                    ((CurrentUser) Login.this.getApplication()).setValuesFromUserObj(userDB);
                     // TODO Auto-generated method stub
                     Intent myIntent = new Intent(Login.this, MainActivity.class);
                     Login.this.startActivity(myIntent);
@@ -60,13 +58,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void saveUserData(User user){
-        ((CurrentUser) Login.this.getApplication()).setValuesFromUserObj(user);
-        String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};
-        ArrayList<String> lst = new ArrayList<>(Arrays.asList(restaurants));
-        ((CurrentUser) Login.this.getApplication()).setList(lst);
     }
 
 }

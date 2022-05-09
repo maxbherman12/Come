@@ -10,33 +10,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.come.CurrentUser;
 import com.example.come.R;
 import com.example.come.db.Picture;
 import com.example.come.db.Publication;
 import com.example.come.db.RoomDB;
-import com.example.come.db.User;
 
 import java.util.List;
 
 public class PostFragment extends Fragment {
-
-    // private PostViewModel mViewModel;
-    EditText captionField;
-    EditText cityField;
-    EditText restaurantField;
+    EditText captionField, cityField, restaurantField;
     ViewPager viewPager_post;
-
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
     Button postButton;
+
     public Uri OriginalPath = Uri.parse("android.resource://com.example.come/" + R.drawable.add_your_image);
     public Uri[] uriArray = new Uri[]{OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath};
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -48,27 +42,19 @@ public class PostFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        postButton = view.findViewById(R.id.button2);
-        captionField = view.findViewById(R.id.captionField);
-        cityField = view.findViewById(R.id.city_field);
-        restaurantField = view.findViewById((R.id.restaurant_field));
+        postButton          = view.findViewById(R.id.button2);
+        captionField        = view.findViewById(R.id.captionField);
+        cityField           = view.findViewById(R.id.city_field);
+        restaurantField     = view.findViewById((R.id.restaurant_field));
+        viewPager_post      = view.findViewById(R.id.viewPager_post);
 
+        postButton.setOnClickListener(v -> handlePost());
 
-        postButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                postButtonClicked();
-            }
-        });
-
-        viewPager_post = view.findViewById(R.id.viewPager_post);
-        horizontalScrollAdapter_post = new HorizontalScrollAdapter_Post(viewPager_post.getContext(), uriArray);
+        horizontalScrollAdapter_post =
+                new HorizontalScrollAdapter_Post(viewPager_post.getContext(), uriArray);
         viewPager_post.setAdapter(horizontalScrollAdapter_post);
         horizontalScrollAdapter_post.notifyDataSetChanged();
-
-
-
     }
-
 
     //receives on activity result from activity
     public void getIntent(Intent data) {
@@ -84,61 +70,27 @@ public class PostFragment extends Fragment {
 
     }
 
-    public void postButtonClicked() {
-
+    public void handlePost() {
         RoomDB db = RoomDB.getInstance(getContext());
-
-        // TODO: CHANGE TO CURRENT USER
-        User user = new User("come","come", "comeprofile.jpg");
-        db.UserDao().insertUser(user);
-
-        if (db.UserDao().getAllUsers() == null) {
-
-            User newUser = new User("come","come", "comeprofile.jpg");
-            db.UserDao().insertUser(newUser);
-        }
-
-        User currentUser = db.UserDao().findUserByUsername(user.getUserName());
-
+        String currentUser = ((CurrentUser) getActivity().getApplication()).getUsername();
 
         String captionOfPost = captionField.getText().toString();
         String cityOfPost = cityField.getText().toString();
         String restaurantOfPost = restaurantField.getText().toString();
 
-        Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser.getUserName());
+        Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser);
         db.PublicationDao().insertPublication(publication);
+
         List<Publication> allP =  db.PublicationDao().getAllPublications();
         Publication lastOne = allP.get(allP.size()-1);
         int pID = lastOne.getPublicationId();
         for(int i = 0; i < uriArray.length-1; i++){
-                String uri = uriArray[i].toString();
-                String oldPic = "android.resource://com.example.come/2131165270";
-                if (uri != oldPic){
-                    Picture picture = new Picture(uriArray[i].toString(), pID);
-                    db.PictureDao().insertPicture(picture);
-                }
-
+            String uri = uriArray[i].toString();
+            if (!uri.equals(OriginalPath.toString())){
+                db.PictureDao().insertPicture(new Picture(uri, pID));
+            }
         }
-
-
-
-
-
-
-
-        //Uri selectedImageUri = data.getData();
-        //Implement Code here Gorka
     }
-    /*
-        @Override
-        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            mViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-            // TODO: Use the ViewModel
-        }
-
- */
-
 }
 
 

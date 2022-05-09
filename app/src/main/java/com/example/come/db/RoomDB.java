@@ -1,17 +1,9 @@
 package com.example.come.db;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import java.util.concurrent.Executors;
 
 @Database(entities={User.class, Publication.class, Picture.class}, version=8)
         //autoMigrations = {@AutoMigration(from = 5, to = 6)})
@@ -37,7 +29,7 @@ public abstract class RoomDB extends RoomDatabase{
     }
     private static RoomDB buildDatabase(final Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), RoomDB.class, DATABASE_NAME).
-                        createFromAsset("UsedDB.db").
+                        createFromAsset("userDatabase.db").
                         allowMainThreadQueries().
                         fallbackToDestructiveMigration().
                         build();

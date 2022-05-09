@@ -14,6 +14,7 @@ public class CurrentUser extends Application {
     private String bio;
     private String imgStr;
     private int img;
+    private String listStr;
     private List<String> list;
 
     public void setValuesFromUserObj(User user){
@@ -22,7 +23,7 @@ public class CurrentUser extends Application {
         setName(user.getName());
         setBio(user.getBio());
         setImgStr(user.getProfilePhoto());
-//        setListFromCsv(user.getListStr());
+        setListFromCsv(user.getRestaurantList());
     }
 
     public String getUsername() {
@@ -57,6 +58,7 @@ public class CurrentUser extends Application {
     public void setList(List<String> _list) { this.list = _list; }
 
     public void setListFromCsv(String strLst){
+        this.listStr = strLst;
         List<String> ret = new ArrayList<String>();
         while(strLst.indexOf(',') != -1){
             String val = strLst.substring(0, strLst.indexOf(','));
@@ -75,10 +77,7 @@ public class CurrentUser extends Application {
     }
 
     public User getUser(){
-        User ret = new User(username, password, imgStr);
-        ret.setBio(bio);
-        ret.setName(name);
-        return ret;
+        return new User(username, password, name, imgStr, bio, listStr);
     }
 }
 

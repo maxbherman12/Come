@@ -12,8 +12,6 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-
-
     @Query("SELECT * FROM User WHERE userName = :username LIMIT 1")
     User findUserByUsername(String username);
 

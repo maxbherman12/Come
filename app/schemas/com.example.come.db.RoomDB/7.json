@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 7,
-    "identityHash": "fe1e101da04e0adb3122f4f368568c40",
+    "identityHash": "0d83427754616064bfa8d8482b69d927",
     "entities": [
       {
         "tableName": "user",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT NOT NULL, `password` TEXT NOT NULL, `name` TEXT, `profilePhoto` TEXT, `bio` TEXT, PRIMARY KEY(`userName`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT NOT NULL, `password` TEXT NOT NULL, `name` TEXT, `profilePhoto` TEXT, `bio` TEXT, `restaurantList` TEXT, PRIMARY KEY(`userName`))",
         "fields": [
           {
             "fieldPath": "userName",
@@ -35,6 +35,12 @@
           {
             "fieldPath": "bio",
             "columnName": "bio",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "restaurantList",
+            "columnName": "restaurantList",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -188,7 +194,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fe1e101da04e0adb3122f4f368568c40')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0d83427754616064bfa8d8482b69d927')"
     ]
   }
 }
