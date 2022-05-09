@@ -37,7 +37,7 @@ public abstract class RoomDB extends RoomDatabase{
     }
     private static RoomDB buildDatabase(final Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), RoomDB.class, DATABASE_NAME).
-                        createFromAsset("UsedDB.db").
+                        createFromAsset("userDatabase.db").
                         allowMainThreadQueries().
                         fallbackToDestructiveMigration().
                         build();

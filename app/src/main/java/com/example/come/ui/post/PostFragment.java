@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.come.MyApplication;
 import com.example.come.R;
 import com.example.come.db.Picture;
 import com.example.come.db.Publication;
@@ -88,24 +89,20 @@ public class PostFragment extends Fragment {
 
         RoomDB db = RoomDB.getInstance(getContext());
 
-        // TODO: CHANGE TO CURRENT USER
-        User user = new User("come","come", "comeprofile.jpg");
-        db.UserDao().insertUser(user);
+        String currentUser = ((MyApplication) getActivity().getApplication()).getSomeVariable();
 
         if (db.UserDao().getAllUsers() == null) {
 
-            User newUser = new User("come","come", "comeprofile.jpg");
+            User newUser = new User("come","come", "come","comeprofile.jpg","","");
             db.UserDao().insertUser(newUser);
         }
-
-        User currentUser = db.UserDao().findUserByUsername(user.getUserName());
 
 
         String captionOfPost = captionField.getText().toString();
         String cityOfPost = cityField.getText().toString();
         String restaurantOfPost = restaurantField.getText().toString();
 
-        Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser.getUserName());
+        Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser);
         db.PublicationDao().insertPublication(publication);
         List<Publication> allP =  db.PublicationDao().getAllPublications();
         Publication lastOne = allP.get(allP.size()-1);
@@ -117,17 +114,7 @@ public class PostFragment extends Fragment {
                     Picture picture = new Picture(uriArray[i].toString(), pID);
                     db.PictureDao().insertPicture(picture);
                 }
-
         }
-
-
-
-
-
-
-
-        //Uri selectedImageUri = data.getData();
-        //Implement Code here Gorka
     }
     /*
         @Override
