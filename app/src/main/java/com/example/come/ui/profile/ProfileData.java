@@ -12,7 +12,7 @@ public class ProfileData {
     public ProfileData(String _name, String _username, String _bio,
                        int _image, List<String> _toVisitList){
         this.name = _name;
-        this.username = _username;
+        this.username = "@" + _username;
         this.bio = _bio;
         this.image = _image;
         this.toVisitList = _toVisitList;
@@ -27,5 +27,6 @@ public class ProfileData {
     public int getImage(){ return this.image; }
 
     public List<String> getToVisitList(){ return this.toVisitList; }
+    public void setToVisitList(List<String> lst){ toVisitList = lst; }
 
 }

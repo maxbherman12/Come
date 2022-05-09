@@ -1,6 +1,5 @@
 package com.example.come.ui.post;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +14,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.come.R;
@@ -25,10 +22,7 @@ import com.example.come.db.Publication;
 import com.example.come.db.RoomDB;
 import com.example.come.db.User;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 public class PostFragment extends Fragment {
 
@@ -104,7 +98,7 @@ public class PostFragment extends Fragment {
             db.UserDao().insertUser(newUser);
         }
 
-        User currentUser = db.UserDao().findUserByName(user.getUserName());
+        User currentUser = db.UserDao().findUserByUsername(user.getUserName());
 
 
         String captionOfPost = captionField.getText().toString();

@@ -15,7 +15,7 @@ public interface UserDao {
 
 
     @Query("SELECT * FROM User WHERE userName = :username LIMIT 1")
-    User findUserByName(String username);
+    User findUserByUsername(String username);
 
     @Query("SELECT password FROM User WHERE password = :password LIMIT 1")
     String findUserByPass(String password);

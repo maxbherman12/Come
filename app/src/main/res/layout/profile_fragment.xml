@@ -84,6 +84,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical">
+                <EditText
+                    android:id="@+id/profile_add_list_text"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_restaurant_to_list" />
+                <ImageView
+                    android:id="@+id/profile_add_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/post_icon"/>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </LinearLayout>

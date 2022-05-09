@@ -1,7 +1,5 @@
 package com.example.come.ui.profile;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,25 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.come.MyApplication;
+import com.example.come.CurrentUser;
 import com.example.come.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
-    TextView name;
-    TextView username;
-    TextView bio;
-    ImageView image;
+    TextView name, username, bio;
+    EditText addText;
+    ImageView image, addBtn;
     ListView list;
+    List<String> visitList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -46,14 +43,16 @@ public class ProfileFragment extends Fragment {
         bio         = view.findViewById(R.id.profile_bio);
         image       = view.findViewById(R.id.profile_image);
         list        = view.findViewById(R.id.restaurant_list);
+        addText     = view.findViewById(R.id.profile_add_list_text);
+        addBtn      = view.findViewById(R.id.profile_add_button);
 
-        //get the username
-        String loggedInUser = ((MyApplication) getActivity().getApplication()).getSomeVariable();
-        loggedInUser = "@"+loggedInUser;
-        // Create ProfileData object
-        // TODO: Replace hard coded values with database implementation
-        ProfileData profileData = new ProfileData(loggedInUser,loggedInUser,
-                "Here is my bio", R.drawable.profile_photo, getRestaurants());
+        // Create ProfileData object from stored current user
+        ProfileData profileData = new ProfileData(
+                ((CurrentUser) getActivity().getApplication()).getName(),
+                ((CurrentUser) getActivity().getApplication()).getUsername(),
+                ((CurrentUser) getActivity().getApplication()).getBio(),
+                ((CurrentUser) getActivity().getApplication()).getImg(),
+                ((CurrentUser) getActivity().getApplication()).getList());
 
         // Set values
         name.setText(profileData.getName());
@@ -61,14 +60,24 @@ public class ProfileFragment extends Fragment {
         bio.setText(profileData.getBio());
         image.setImageResource(profileData.getImage());
 
-        MyAdapter listAdapter = new MyAdapter(view.getContext(), profileData.getToVisitList());
+        visitList = profileData.getToVisitList();
+        MyAdapter listAdapter = new MyAdapter(view.getContext(), visitList);
         list.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
+
+        addBtn.setOnClickListener(view1 -> {
+            String valToAdd = addText.getText().toString();
+            addText.setText("");
+            visitList.add(valToAdd);
+            profileData.setToVisitList(visitList);
+            ((CurrentUser) getActivity().getApplication()).setList(visitList);
+            listAdapter.notifyDataSetChanged();
+        });
 
         return view;
     }
 
-    static class MyAdapter extends ArrayAdapter<String> {
+    class MyAdapter extends ArrayAdapter<String> {
         Context context;
         List<String> list;
 
@@ -92,6 +101,7 @@ public class ProfileFragment extends Fragment {
 
             btn.setOnClickListener(view -> {
                 list.remove(position);
+                ((CurrentUser) getActivity().getApplication()).setList(list);
                 notifyDataSetChanged();
             });
 
@@ -102,11 +112,5 @@ public class ProfileFragment extends Fragment {
         public boolean isEnabled(int position){
             return false;
         }
-    }
-
-    // TODO: Replace this method with database implementation
-    public List<String> getRestaurants(){
-        String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};
-        return new ArrayList<>(Arrays.asList(restaurants));
     }
 }
