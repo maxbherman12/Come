@@ -20,9 +20,6 @@ public interface PictureDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertPictures(Picture... picture);
 
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    void updatePicture(Picture picture);
-
     @Query("DELETE FROM Picture")
     void deleteAllPictures();
 

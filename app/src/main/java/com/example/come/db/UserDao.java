@@ -37,5 +37,5 @@ public interface UserDao {
 
     @Transaction
     @Query("SELECT * FROM User")
-    List<UserAllPublications> getUserPublications();
+    List<User> getUserPublications();
 }

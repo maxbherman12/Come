@@ -11,15 +11,24 @@ import androidx.room.PrimaryKey;
 public class User {
 
     @PrimaryKey()
-    @ColumnInfo(defaultValue = "come")
+    @ColumnInfo(name = "userName")
     @NonNull
     public String userName;
-
-    @ColumnInfo(defaultValue = "come")
+    @ColumnInfo(name = "password")
     @NonNull
     public String password;
-
+    @ColumnInfo(name = "profilePhoto")
     public String profilePhoto;
+    @ColumnInfo(name = "bio")
+    public String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public String getProfilePhoto() {
         return profilePhoto;

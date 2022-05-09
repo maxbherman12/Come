@@ -70,8 +70,6 @@ public class HomeFragment extends Fragment implements LocationListener {
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 0, 1, this);
 
-
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(requireActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
