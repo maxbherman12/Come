@@ -13,4 +13,6 @@
     <string name="search_for_users">Search for users...</string>
     <string name="username">\@username</string>
     <string name="follow">Follow</string>
+    <string name="remove">Remove</string>
+    <string name="place_to_visit">Place to visit</string>
 </resources>

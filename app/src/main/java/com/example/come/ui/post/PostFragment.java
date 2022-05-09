@@ -94,6 +94,7 @@ public class PostFragment extends Fragment {
 
         RoomDB db = RoomDB.getInstance(getContext());
 
+        // TODO: CHANGE TO CURRENT USER
         User user = new User("come","come", "comeprofile.jpg");
         db.UserDao().insertUser(user);
 
