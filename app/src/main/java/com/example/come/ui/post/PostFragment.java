@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class PostFragment extends Fragment {
     ViewPager viewPager_post;
     HorizontalScrollAdapter_Post horizontalScrollAdapter_post;
     Button postButton;
+    View globalView;
 
     public Uri OriginalPath = Uri.parse("android.resource://com.example.come/" + R.drawable.add_your_image);
     public Uri[] uriArray = new Uri[]{OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath, OriginalPath};
@@ -35,7 +37,8 @@ public class PostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.post_fragment, container, false);
+        globalView = inflater.inflate(R.layout.post_fragment, container, false);
+        return globalView;
     }
 
 
@@ -89,6 +92,21 @@ public class PostFragment extends Fragment {
             if (!uri.equals(OriginalPath.toString())){
                 db.PictureDao().insertPicture(new Picture(uri, pID));
             }
+        }
+
+        resetPostFields();
+        Toast.makeText(globalView.getContext(), "Successfully posted", Toast.LENGTH_SHORT).show();
+    }
+
+    private void resetPostFields(){
+        captionField.setText("");
+        restaurantField.setText("");
+        cityField.setText("");
+
+        // TODO: This doesn't work, fix it
+        for(int i = 0; i < uriArray.length; ++i){
+            uriArray[i] = OriginalPath;
+            horizontalScrollAdapter_post.notifyDataSetChanged();
         }
     }
 }
