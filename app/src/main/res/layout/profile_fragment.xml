@@ -61,8 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:textSize="16sp"
-            android:gravity="center_vertical"
-            android:text="@string/bio"/>
+            android:gravity="center_vertical"/>
 
         <Space
             android:layout_width="match_parent"
@@ -77,7 +76,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:text="@string/restaurants_to_visit"/>
             <ListView
                 android:id="@+id/restaurant_list"
