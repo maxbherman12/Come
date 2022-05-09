@@ -50,6 +50,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment implements LocationListener {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ArrayList<PostData> posts;
+    ArrayList<PostDataUri> fetchedPosts;
     Location deviceLoc;
     SwipeRefreshLayout swipeRefreshLayout;
     View globalView;
@@ -123,10 +124,10 @@ public class HomeFragment extends Fragment implements LocationListener {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(false);
-                ArrayList<PostDataUri> fetchedPosts;
                 //do the fetch data request here
                 Toast.makeText(getContext(), "Successfull refresh", Toast.LENGTH_SHORT).show();
                 fetchedPosts = setUpUriPosts();
+                updateAllPostsUri();
                 Post_RecyclerViewAdapter_Fetched adapter = new Post_RecyclerViewAdapter_Fetched(getContext(), fetchedPosts);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -280,6 +281,60 @@ public class HomeFragment extends Fragment implements LocationListener {
                 Log.e(this.getClass().getSimpleName(), "Exception calling endpoint", t);
             }
         });
+    }
+
+    private void updatePostDistanceUri(int index){
+        if (deviceLoc == null) return;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://maps.googleapis.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PlacesService usersService = retrofit.create(PlacesService.class);
+
+        String origin = deviceLoc.getLatitude() + ", " + deviceLoc.getLongitude();
+        String destination = fetchedPosts.get(index).getAddress();
+        String key = BuildConfig.MAPS_API_KEY;
+
+        Call<Root> call = usersService.queryDistance(origin, destination, key);
+
+        call.enqueue(new Callback<Root>() {
+            @Override
+            public void onResponse(Call<Root> call,
+                                   Response<Root> response) {
+                // Find min distance to location
+                double min = -1.0;
+                assert response.body() != null;
+                for (Row row : response.body().rows) {
+                    for (Element element: row.elements){
+                        if (element.distance == null) return;
+                        else{
+                            double dist = Integer.parseInt(element.distance.value);
+                            if (min == -1 || min > dist){
+                                min = dist;
+                            }
+                        }
+
+                    }
+                }
+
+                PostDataUri curPost = fetchedPosts.get(index);
+                curPost.setDistance(min/1000);
+
+                fetchedPosts.set(index, curPost);
+                post_recyclerViewAdapter.notifyItemChanged(index);
+            }
+            @Override
+            public void onFailure(Call<Root> call, Throwable t) {
+                Log.e(this.getClass().getSimpleName(), "Exception calling endpoint", t);
+            }
+        });
+    }
+
+    public void updateAllPostsUri(){
+        for(int i = 0; i < fetchedPosts.size(); ++i){
+            updatePostDistanceUri(i);
+        }
     }
 
     @Override
