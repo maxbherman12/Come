@@ -37,20 +37,9 @@ public abstract class RoomDB extends RoomDatabase{
     }
     private static RoomDB buildDatabase(final Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), RoomDB.class, DATABASE_NAME).
+                        createFromAsset("UsedDB.db").
                         allowMainThreadQueries().
                         fallbackToDestructiveMigration().
-                        addCallback(new Callback() {
-                            @Override
-                            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                                super.onCreate(db);
-                                Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        getInstance(context).UserDao().insertUsers(User.populateUser());
-                                    }
-                                });
-                            }
-                        })
-                        .build();
+                        build();
             }
         }
