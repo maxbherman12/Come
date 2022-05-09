@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.come.CurrentUser;
 import com.example.come.R;
 import com.example.come.db.RoomDB;
 import com.example.come.db.User;
@@ -107,7 +108,7 @@ public class SearchFragment extends Fragment {
 
             // TODO: replace this with getting the photo value
             photo.setImageResource(imageResource);
-            username.setText(users.get(position).getUserName());
+            username.setText("@" + users.get(position).getUserName());
             btn.setText(follows("self", (String) username.getText()) ? "Following" : "Follow");
 
             btn.setOnClickListener(view -> {
@@ -134,9 +135,11 @@ public class SearchFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<User> filterUsers(String key){
         List<User> ret = new ArrayList<>();
-        if(key.equals("@all")) return allUsers;
+        List<User> usersToSearch = removeUserFromListByUsername(allUsers,
+                ((CurrentUser) getActivity().getApplication()).getUsername());
+        if(key.equals("@all")) return usersToSearch;
         if(!key.equals("")){
-            for(User user: allUsers){
+            for(User user: usersToSearch){
                 if(user.getUserName().toLowerCase().contains(key.toLowerCase())){
                     ret.add(user);
                 }
@@ -148,6 +151,15 @@ public class SearchFragment extends Fragment {
         }
 
         return ret;
+    }
+
+    private List<User> removeUserFromListByUsername(List<User> lst, String username){
+        for(int i = 0; i < lst.size(); ++i){
+            if(lst.get(i).getUserName().equals(username)){
+                lst.remove(i);
+            }
+        }
+        return lst;
     }
 
     // Temporary follow method to be later replaced

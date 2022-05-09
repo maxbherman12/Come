@@ -13,13 +13,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities={User.class, Publication.class, Picture.class}, version=7)
+@Database(entities={User.class, Publication.class, Picture.class}, version=8)
         //autoMigrations = {@AutoMigration(from = 5, to = 6)})
 public abstract class RoomDB extends RoomDatabase{
     //Database instance creation
     private static RoomDB database;
     //Database name definition
-    private static String DATABASE_NAME="database";
+    private static String DATABASE_NAME = "database";
 
     // Data Access Objects for SQL database queries
     public abstract UserDao UserDao();
