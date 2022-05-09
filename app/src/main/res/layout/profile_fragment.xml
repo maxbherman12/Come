@@ -34,14 +34,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Full name"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/profile_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="\@username"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <ImageView
@@ -94,8 +94,9 @@
                 <EditText
                     android:id="@+id/profile_add_list_text"
                     android:layout_alignParentBottom="true"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:hint="@string/add_restaurant_to_list" />
                 <ImageView
                     android:id="@+id/profile_add_button"
