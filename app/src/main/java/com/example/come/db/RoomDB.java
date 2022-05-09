@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities={User.class, Publication.class, Picture.class}, version=6)
+@Database(entities={User.class, Publication.class, Picture.class}, version=7)
         //autoMigrations = {@AutoMigration(from = 5, to = 6)})
 public abstract class RoomDB extends RoomDatabase{
     //Database instance creation
@@ -25,7 +25,6 @@ public abstract class RoomDB extends RoomDatabase{
     public abstract UserDao UserDao();
     public abstract PublicationDao PublicationDao();
     public abstract PictureDao PictureDao();
-    //public abstract FollowerDao FollowerDao();
 
 
     // Method returning the db and creating it if there isn't created yet
@@ -48,9 +47,6 @@ public abstract class RoomDB extends RoomDatabase{
                                     @Override
                                     public void run() {
                                         getInstance(context).UserDao().insertUsers(User.populateUser());
-                                        getInstance(context).PublicationDao().insertPublications(Publication.populatePublication());
-                                        getInstance(context).PictureDao().insertPictures(Picture.populatePicture());
-                                        //getInstance(context).FollowerDao().insertFollowers(Follower.populateFollower());
                                     }
                                 });
                             }

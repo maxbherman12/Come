@@ -37,5 +37,5 @@ public interface PublicationDao {
 
     @Transaction
     @Query("SELECT * FROM Publication")
-    List<PublicationAllPictures> getPublicationPictures();
+    List<Publication> getPublicationPictures();
 }
