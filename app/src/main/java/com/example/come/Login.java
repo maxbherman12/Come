@@ -58,23 +58,12 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Incorrect data!", Toast.LENGTH_SHORT).show();
                 }
             }
-
-
         });
 
     }
 
     private void saveUserData(User user){
-        ((CurrentUser) Login.this.getApplication()).setUsername(user.getUserName());
-        ((CurrentUser) Login.this.getApplication()).setName("Max Herman");
-        ((CurrentUser) Login.this.getApplication()).setBio("This is my bio from login");
-
-        String imgFilepath = user.getProfilePhoto();
-        String uri = "@drawable/" + imgFilepath.substring(0, imgFilepath.indexOf('.'));
-        int imageResource =
-                getResources().getIdentifier(uri, null, getApplicationContext().getPackageName());
-        ((CurrentUser) Login.this.getApplication()).setImg(imageResource);
-
+        ((CurrentUser) Login.this.getApplication()).setValuesFromUserObj(user);
         String[] restaurants = {"Humuseria", "Cherry Pecas", "La Musa Latina", "Vietnamese Express"};
         ArrayList<String> lst = new ArrayList<>(Arrays.asList(restaurants));
         ((CurrentUser) Login.this.getApplication()).setList(lst);

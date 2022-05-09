@@ -153,6 +153,12 @@ public class SearchFragment extends Fragment {
         return ret;
     }
 
+    /**
+     * Removes a user from a list of users by using the username as the key
+     * @param lst - list to explore
+     * @param username - username to search for
+     * @return returns a new list of users without the user with provided username
+     */
     private List<User> removeUserFromListByUsername(List<User> lst, String username){
         for(int i = 0; i < lst.size(); ++i){
             if(lst.get(i).getUserName().equals(username)){
