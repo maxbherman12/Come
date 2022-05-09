@@ -19,7 +19,7 @@ public abstract class RoomDB extends RoomDatabase{
     //Database instance creation
     private static RoomDB database;
     //Database name definition
-    private static String DATABASE_NAME="database";
+    private static String DATABASE_NAME = "database";
 
     // Data Access Objects for SQL database queries
     public abstract UserDao UserDao();

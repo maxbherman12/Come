@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         for (Publication publication : publications){
             String caption = publication.getCaption();
-            User user = db.UserDao().findUserByName(publication.getFk_userName());
+            User user = db.UserDao().findUserByUsername(publication.getFk_userName());
             String username = user.getUserName();
             int publicationId = publication.getPublicationId();
             String city = publication.getCity();
