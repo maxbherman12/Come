@@ -49,7 +49,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:src="@drawable/profile_photo" />
+                />
         </RelativeLayout>
 
         <Space

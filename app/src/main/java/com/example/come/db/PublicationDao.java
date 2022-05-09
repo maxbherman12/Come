@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.ArrayList;
@@ -28,9 +29,13 @@ public interface PublicationDao {
     @Query("DELETE FROM publication")
     void deleteAllPublications();
 
-    @Query("SELECT * FROM Publication ORDER BY fk_userId ASC")
+    @Query("SELECT * FROM Publication ORDER BY fk_userName ASC")
     List<Publication> getAllPublications();
 
-    @Query("SELECT * FROM Publication WHERE fk_userId = :id")
-    Publication getPublicationByUserId(int id);
+    @Query("SELECT * FROM Publication WHERE fk_userName = :uName")
+    Publication getPublicationByUserId(String uName);
+
+    @Transaction
+    @Query("SELECT * FROM Publication")
+    List<PublicationAllPictures> getPublicationPictures();
 }

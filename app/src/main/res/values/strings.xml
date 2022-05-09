@@ -10,4 +10,7 @@
     <string name="namefield">NameField</string>
     <string name="restaurants_to_visit">Restaurants to Visit</string>
     <string name="bio">Hi my name is Max and I absolutely love food. My favorite cuisines are mediterranean and asian fusion. Always looking for new friends to go try restaurants with!!</string>
+    <string name="search_for_users">Search for users...</string>
+    <string name="username">\@username</string>
+    <string name="follow">Follow</string>
 </resources>
