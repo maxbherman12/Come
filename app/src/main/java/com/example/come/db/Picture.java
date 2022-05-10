@@ -6,9 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "picture",
-        indices = {@Index(value="pictureId", unique = true),
-                   @Index(value = "fk_publicationId")})
+@Entity(tableName = "picture")
 public class Picture {
     //Creating id of the table
     @PrimaryKey(autoGenerate = true)

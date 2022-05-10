@@ -5,11 +5,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "publication", foreignKeys = @ForeignKey(entity = User.class,
-        parentColumns = "userName",
-        childColumns = "fk_userName",
-        onDelete = ForeignKey.CASCADE),
-        indices = {@Index(value = "publicationId", unique = true), @Index(value = "fk_userName")})
+@Entity(tableName = "publication",
+        indices = {@Index(value = "publicationId", unique = true)})
 public class Publication {
 
     //Creating id of the table
