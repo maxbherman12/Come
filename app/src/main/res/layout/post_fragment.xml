@@ -37,7 +37,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
-                    android:hint="Enter your caption here"
+                    android:hint="@string/enter_your_caption_here"
                     app:layout_constraintTop_toBottomOf="@id/viewPager_post"
                     android:inputType="textMultiLine" />
 
@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".15"
+            android:paddingVertical="5dp"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/post_additionalData"
