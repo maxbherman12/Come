@@ -6,7 +6,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 @Database(entities={User.class, Publication.class, Picture.class}, version=8)
-        //autoMigrations = {@AutoMigration(from = 5, to = 6)})
 public abstract class RoomDB extends RoomDatabase{
     //Database instance creation
     private static RoomDB database;
