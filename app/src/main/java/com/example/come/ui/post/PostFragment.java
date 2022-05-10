@@ -73,7 +73,11 @@ public class PostFragment extends Fragment {
 
     }
 
-    public void handlePost() {
+    /**
+     * handlePost()
+     * Pulls data from the entry fields and publishes them to the database
+     */
+    private void handlePost() {
         RoomDB db = RoomDB.getInstance(getContext());
         String currentUser = ((CurrentUser) getActivity().getApplication()).getUsername();
 
@@ -104,6 +108,10 @@ public class PostFragment extends Fragment {
         }
     }
 
+    /**
+     * resetPostFields()
+     * Resets all entry fields in then post fragment once an item has been posted
+     */
     private void resetPostFields(){
         captionField.setText("");
         restaurantField.setText("");
@@ -123,6 +131,14 @@ public class PostFragment extends Fragment {
         }
     }
 
+    /**
+     * validatePost()
+     * Ensures that all fields for the post that is to be published are valid
+     * @param caption - post caption
+     * @param name - restaurant name of post
+     * @param city - city of post
+     * @return - valid if the post is valid, otherwise the error message to display
+     */
     private String validatePost(String caption, String name, String city){
         // Must include all fields
         if(caption.equals("") && name.equals("") && city.equals("")){
