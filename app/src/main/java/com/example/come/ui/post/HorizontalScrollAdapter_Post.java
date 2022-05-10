@@ -73,7 +73,7 @@ public class HorizontalScrollAdapter_Post  extends PagerAdapter {
     }
 
     private void selectImage(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         Bundle extras = new Bundle();
         extras.putString("Username", "teststring");
         intent.setType("image/*");

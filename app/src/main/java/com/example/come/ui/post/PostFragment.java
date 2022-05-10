@@ -102,11 +102,21 @@ public class PostFragment extends Fragment {
         captionField.setText("");
         restaurantField.setText("");
         cityField.setText("");
-
+        int count = 0;
         // TODO: This doesn't work, fix it
         for(int i = 0; i < uriArray.length; ++i){
+            if (uriArray[i] !=OriginalPath){
+                count=count+1;
+            }
+            //uriArray[i] = OriginalPath;
+            //horizontalScrollAdapter_post.notifyDataSetChanged();
+
+        for (int s = 0; s < count; ++s) {
             uriArray[i] = OriginalPath;
-            horizontalScrollAdapter_post.notifyDataSetChanged();
+            ImageView myView = (ImageView) viewPager_post.findViewWithTag(s);
+           // myView.setImageResource(R.drawable.add_your_image);
+            myView.setImageURI(OriginalPath);
+        }
         }
     }
 }
