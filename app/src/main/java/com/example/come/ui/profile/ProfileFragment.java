@@ -21,8 +21,6 @@ import android.widget.TextView;
 import com.example.come.CurrentUser;
 import com.example.come.R;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -52,7 +50,7 @@ public class ProfileFragment extends Fragment {
                 ((CurrentUser) getActivity().getApplication()).getUsername(),
                 ((CurrentUser) getActivity().getApplication()).getBio(),
                 ((CurrentUser) getActivity().getApplication()).getImg(),
-                ((CurrentUser) getActivity().getApplication()).getList());
+                ((CurrentUser) getActivity().getApplication()).getRestaurantList());
 
         // Set values
         name.setText(profileData.getName());
@@ -70,7 +68,7 @@ public class ProfileFragment extends Fragment {
             addText.setText("");
             visitList.add(valToAdd);
             profileData.setToVisitList(visitList);
-            ((CurrentUser) getActivity().getApplication()).setList(visitList);
+            ((CurrentUser) getActivity().getApplication()).setRestaurantList(visitList);
             listAdapter.notifyDataSetChanged();
         });
 
@@ -101,7 +99,7 @@ public class ProfileFragment extends Fragment {
 
             btn.setOnClickListener(view -> {
                 list.remove(position);
-                ((CurrentUser) getActivity().getApplication()).setList(list);
+                ((CurrentUser) getActivity().getApplication()).setRestaurantList(list);
                 notifyDataSetChanged();
             });
 
