@@ -2,6 +2,7 @@ package com.example.come.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -20,14 +21,11 @@ public interface PictureDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertPictures(Picture... picture);
 
-    @Query("DELETE FROM Picture")
-    void deleteAllPictures();
-
     @Query("SELECT * FROM Picture ORDER BY fk_publicationId ASC")
     List<Picture> getAllPictures();
 
-    @Query("SELECT * FROM Picture WHERE fk_publicationId = :pID")
-    List<Picture> getAllPicturesByPublicationId(int pID);
+    @Delete
+    void deletePicture(Picture picture);
 
     @Query("SELECT * FROM Picture WHERE fk_publicationId = :id")
     Picture getPictureByPublicationId(int id);

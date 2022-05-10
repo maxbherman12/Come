@@ -2,6 +2,7 @@ package com.example.come.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -26,8 +27,8 @@ public interface PublicationDao {
     @Update(onConflict = OnConflictStrategy.IGNORE)
     void updatePublication(Publication publication);
 
-    @Query("DELETE FROM publication")
-    void deleteAllPublications();
+    @Delete
+    void deletePublication(Publication publication);
 
     @Query("SELECT * FROM Publication ORDER BY fk_userName ASC")
     List<Publication> getAllPublications();
