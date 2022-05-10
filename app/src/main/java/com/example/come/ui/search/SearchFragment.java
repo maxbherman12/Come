@@ -106,19 +106,18 @@ public class SearchFragment extends Fragment {
             int imageResource =
                     getResources().getIdentifier(uri, null, context.getPackageName());
 
-            // TODO: replace this with getting the photo value
             photo.setImageResource(imageResource);
             username.setText("@" + users.get(position).getUserName());
-            btn.setText(follows("self", (String) username.getText()) ? "Following" : "Follow");
+            btn.setText(follows((String) username.getText()) ? "Following" : "Follow");
 
             btn.setOnClickListener(view -> {
                 String current = (String) btn.getText();
                 if(current.equals("Follow")){
                     btn.setText("Following");
-                    followUser("You", (String) username.getText());
+                    followUser((String) username.getText());
                 } else{
                     btn.setText("Follow");
-                    unfollowUser("You", (String) username.getText());
+                    unfollowUser((String) username.getText());
                 }
             });
 
@@ -168,19 +167,18 @@ public class SearchFragment extends Fragment {
         return lst;
     }
 
-    // Temporary follow method to be later replaced
-    private void followUser(String user, String userToBeFollowed){
-        Toast.makeText(view.getContext(), user + " followed " + userToBeFollowed, Toast.LENGTH_SHORT).show();
+    private void followUser(String userToBeFollowed){
+        ((CurrentUser) getActivity().getApplication()).follow(userToBeFollowed);
+        Toast.makeText(view.getContext(),  "You followed " + userToBeFollowed, Toast.LENGTH_SHORT).show();
     }
 
-    // Temporary unfollow method to be later replaced
-    private void unfollowUser(String user, String userToBeFollowed){
-        Toast.makeText(view.getContext(), user + " unfollowed " + userToBeFollowed, Toast.LENGTH_SHORT).show();
+    private void unfollowUser(String userToBeFollowed){
+        ((CurrentUser) getActivity().getApplication()).unfollow(userToBeFollowed);
+        Toast.makeText(view.getContext(), "You unfollowed " + userToBeFollowed, Toast.LENGTH_SHORT).show();
     }
 
-    // Temporary method for checking if one user follows another to be later replaced
     // Returns true if user follows user2. For now lets make it random
-    private boolean follows(String user, String user2){
-        return new Random().nextBoolean();
+    private boolean follows(String user){
+        return ((CurrentUser) getActivity().getApplication()).follows(user);
     }
 }
