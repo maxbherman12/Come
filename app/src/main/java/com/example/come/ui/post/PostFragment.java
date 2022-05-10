@@ -77,25 +77,31 @@ public class PostFragment extends Fragment {
         RoomDB db = RoomDB.getInstance(getContext());
         String currentUser = ((CurrentUser) getActivity().getApplication()).getUsername();
 
-        String captionOfPost = captionField.getText().toString();
-        String cityOfPost = cityField.getText().toString();
-        String restaurantOfPost = restaurantField.getText().toString();
+        String captionOfPost = captionField.getText().toString().trim();
+        String cityOfPost = cityField.getText().toString().trim();
+        String restaurantOfPost = restaurantField.getText().toString().trim();
 
-        Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser);
-        db.PublicationDao().insertPublication(publication);
+        String postValidation = validatePost(captionOfPost, restaurantOfPost, cityOfPost);
+        if(postValidation.equals("valid")){
+            Publication publication = new Publication(captionOfPost,cityOfPost,restaurantOfPost,currentUser);
+            db.PublicationDao().insertPublication(publication);
 
-        List<Publication> allP =  db.PublicationDao().getAllPublications();
-        Publication lastOne = allP.get(allP.size()-1);
-        int pID = lastOne.getPublicationId();
-        for(int i = 0; i < uriArray.length-1; i++){
-            String uri = uriArray[i].toString();
-            if (!uri.equals(OriginalPath.toString())){
-                db.PictureDao().insertPicture(new Picture(uri, pID));
+            List<Publication> allP =  db.PublicationDao().getAllPublications();
+            Publication lastOne = allP.get(allP.size()-1);
+            int pID = lastOne.getPublicationId();
+            for(int i = 0; i < uriArray.length-1; i++){
+                String uri = uriArray[i].toString();
+                if (!uri.equals(OriginalPath.toString())){
+                    db.PictureDao().insertPicture(new Picture(uri, pID));
+                }
             }
-        }
 
-        resetPostFields();
-        Toast.makeText(globalView.getContext(), "Successfully posted", Toast.LENGTH_SHORT).show();
+            resetPostFields();
+            Toast.makeText(globalView.getContext(), "Successfully posted", Toast.LENGTH_SHORT).show();
+        } else {
+            String errorMessage = "Cannot publish post. " + postValidation;
+            Toast.makeText(globalView.getContext(), errorMessage, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void resetPostFields(){
@@ -103,21 +109,45 @@ public class PostFragment extends Fragment {
         restaurantField.setText("");
         cityField.setText("");
         int count = 0;
-        // TODO: This doesn't work, fix it
+
         for(int i = 0; i < uriArray.length; ++i){
             if (uriArray[i] !=OriginalPath){
                 count=count+1;
             }
-            //uriArray[i] = OriginalPath;
-            //horizontalScrollAdapter_post.notifyDataSetChanged();
 
-        for (int s = 0; s < count; ++s) {
-            uriArray[i] = OriginalPath;
-            ImageView myView = (ImageView) viewPager_post.findViewWithTag(s);
-           // myView.setImageResource(R.drawable.add_your_image);
-            myView.setImageURI(OriginalPath);
+            for (int s = 0; s < count; ++s) {
+                uriArray[i] = OriginalPath;
+                ImageView myView = (ImageView) viewPager_post.findViewWithTag(s);
+                myView.setImageURI(OriginalPath);
+            }
         }
+    }
+
+    private String validatePost(String caption, String name, String city){
+        // Must include all fields
+        if(caption.equals("") && name.equals("") && city.equals("")){
+            return "You must include all fields";
         }
+        // Caption must be at least 20 characters and no more than 200 characters
+        if(caption.length() < 20 || caption.length() > 200){
+            return "Caption must be between 20 and 200 characters";
+        }
+        // Restaurant name cannot be more than 40 characters long
+        if(name.length() > 40){
+            return "Restaurant name must be no more than 40 characters";
+        }
+        // All posts must include one photo
+        int count = 0;
+        for(int i = 0; i < uriArray.length-1; i++){
+            String uri = uriArray[i].toString();
+            if (!uri.equals(OriginalPath.toString())){
+                ++count;
+            }
+        }
+        if(count == 0) return "You must include at least one photo";
+
+        // Else, return valid
+        return "valid";
     }
 }
 
