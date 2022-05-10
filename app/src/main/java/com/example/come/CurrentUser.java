@@ -2,6 +2,7 @@ package com.example.come;
 
 import android.app.Application;
 
+import com.example.come.db.RoomDB;
 import com.example.come.db.User;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class CurrentUser extends Application {
     private String imgStr;
     private int img;
     private String listStr;
-    private List<String> list;
+    private List<String> restaurantList;
+    private List<String> following = new ArrayList<String>();
 
     public void setValuesFromUserObj(User user){
         setUsername(user.getUserName());
@@ -54,8 +56,8 @@ public class CurrentUser extends Application {
     public int getImg(){ return img; }
     public void setImg(int _img){ this.img = _img; }
 
-    public List<String> getList(){ return this.list; }
-    public void setList(List<String> _list) { this.list = _list; }
+    public List<String> getRestaurantList(){ return this.restaurantList; }
+    public void setRestaurantList(List<String> _list) { this.restaurantList = _list; }
 
     public void setListFromCsv(String strLst){
         this.listStr = strLst;
@@ -73,7 +75,19 @@ public class CurrentUser extends Application {
             ret.add(strLst.trim());
         }
 
-        this.list = ret;
+        this.restaurantList = ret;
+    }
+
+    public void follow(String username){
+        following.add(username);
+    }
+
+    public void unfollow(String username){
+        following.remove(username);
+    }
+
+    public boolean follows(String username){
+        return following.contains(username);
     }
 
     public User getUser(){
