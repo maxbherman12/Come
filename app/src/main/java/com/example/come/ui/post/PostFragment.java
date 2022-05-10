@@ -118,18 +118,19 @@ public class PostFragment extends Fragment {
         cityField.setText("");
         int count = 0;
 
-        for(int i = 0; i < uriArray.length; ++i){
+        for (int i = 0; i < uriArray.length; ++i){
             if (uriArray[i] !=OriginalPath){
                 count=count+1;
             }
+            }
 
             for (int s = 0; s < count; ++s) {
-                uriArray[i] = OriginalPath;
+                uriArray[s] = OriginalPath;
                 ImageView myView = (ImageView) viewPager_post.findViewWithTag(s);
                 myView.setImageURI(OriginalPath);
             }
         }
-    }
+
 
     /**
      * validatePost()
