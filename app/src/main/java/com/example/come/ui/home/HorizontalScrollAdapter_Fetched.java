@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class HorizontalScrollAdapter_fetched extends PagerAdapter {
+public class HorizontalScrollAdapter_Fetched extends PagerAdapter {
 
     private Context ctx;
    // private int[] ImageArray; //= new int[] {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3};
     private Uri[] UriArray;
-    HorizontalScrollAdapter_fetched(Context context) {ctx = context;}
+    HorizontalScrollAdapter_Fetched(Context context) {ctx = context;}
 
 
     @Override

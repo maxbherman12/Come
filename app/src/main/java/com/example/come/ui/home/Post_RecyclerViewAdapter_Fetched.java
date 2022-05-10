@@ -4,14 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import com.example.come.R;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewParentCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 
 import java.util.ArrayList;
@@ -57,14 +54,14 @@ public class Post_RecyclerViewAdapter_Fetched extends RecyclerView.Adapter<Post_
         TextView textViewCaption;
         TextView distanceText;
         TextView nameText;
-        HorizontalScrollAdapter_fetched horizontalScrollAdapter_fetched;
+        HorizontalScrollAdapter_Fetched horizontalScrollAdapter_fetched;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             viewPager = itemView.findViewById(R.id.myViewPager);
             textViewCaption = itemView.findViewById(R.id.captionField);
             distanceText = itemView.findViewById(R.id.distanceField);
             nameText = itemView.findViewById(R.id.nameField);
-            horizontalScrollAdapter_fetched = new HorizontalScrollAdapter_fetched(viewPager.getContext());
+            horizontalScrollAdapter_fetched = new HorizontalScrollAdapter_Fetched(viewPager.getContext());
         }
     }
 }
